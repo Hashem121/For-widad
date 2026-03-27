@@ -7,18 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@0,400;0,900;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --espresso: #241812;
-            --mocha: #4e342e;
+            --espresso: #1a110d;
+            --mocha: #3d2b1f;
             --caramel: #8d6e63;
             --latte: #d7ccc8;
             --gold: #c5a059;
             --kiss-red: #a52a2a;
-            --white-glass: rgba(255, 255, 255, 0.1);
+            --white-glass: rgba(255, 255, 255, 0.05);
             --transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--espresso); color: var(--latte); font-family: 'Montserrat', sans-serif; overflow: hidden; height: 100vh; }
+        body { background-color: var(--espresso); color: var(--latte); font-family: 'Montserrat', sans-serif; overflow: hidden; height: 100vh; touch-action: none; }
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, var(--mocha), var(--espresso)); }
 
         .page { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; opacity: 0; transform: translateY(50px); visibility: hidden; transition: var(--transition); text-align: center; }
@@ -27,7 +27,7 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5rem); color: var(--gold); margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .subtitle { font-size: 1.2rem; letter-spacing: 5px; text-transform: uppercase; color: var(--caramel); margin-bottom: 40px; }
 
-        .lux-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 18px 45px; font-size: 1rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.4s; margin-top: 20px; border-radius: 4px; z-index: 10; }
+        .lux-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 18px 45px; font-size: 1rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.4s; margin-top: 20px; border-radius: 4px; z-index: 100; position: relative; }
         .lux-btn:hover { background: var(--gold); color: var(--espresso); box-shadow: 0 0 30px rgba(197, 160, 89, 0.4); }
 
         /* TIMER */
@@ -37,52 +37,44 @@
         .timer-val { font-size: 2.5rem; font-weight: bold; color: var(--gold); display: block; }
         .timer-label { font-size: 0.7rem; color: var(--latte); text-transform: uppercase; }
 
-        /* GAME BUBBLES */
+        /* GAME */
         #game-container { width: 100%; max-width: 800px; height: 400px; background: rgba(0,0,0,0.2); border-radius: 20px; border: 1px solid var(--gold); position: relative; overflow: hidden; margin-bottom: 20px; }
         .memory-bubble { position: absolute; padding: 10px 20px; background: var(--gold); color: var(--espresso); border-radius: 50px; font-weight: bold; font-family: 'Amiri', serif; font-size: 1.3rem; cursor: pointer; transition: transform 0.2s; white-space: nowrap; }
 
-        /* THE LOVE JAR */
+        /* LOVE JAR */
         .jar-container { position: relative; width: 200px; height: 280px; cursor: pointer; transition: transform 0.3s; }
-        .jar-container:hover { transform: scale(1.05); }
-        .jar { width: 100%; height: 100%; background: rgba(255, 255, 255, 0.15); border: 4px solid var(--gold); border-radius: 40px 40px 20px 20px; position: relative; box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.3), 0 10px 30px rgba(0,0,0,0.5); }
+        .jar { width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); border: 4px solid var(--gold); border-radius: 40px 40px 20px 20px; position: relative; box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.2); }
         .jar-lid { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: var(--gold); border-radius: 10px; }
-        .jar-glow { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; background: var(--gold); filter: blur(40px); opacity: 0.5; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 0.7; } 100% { opacity: 0.3; } }
         
         #love-note { position: absolute; bottom: 350px; background: #fff; color: #333; padding: 20px 30px; border-radius: 10px; font-family: 'Amiri', serif; font-size: 1.6rem; min-width: 300px; opacity: 0; transform: translateY(20px); transition: 0.5s; box-shadow: 0 10px 40px rgba(0,0,0,0.8); pointer-events: none; z-index: 100; text-align: center; }
         #love-note.active { opacity: 1; transform: translateY(0); }
 
-        /* ARABIC SCROLL */
-        .scroll-container { max-width: 800px; max-height: 55vh; overflow-y: auto; background: #fdfaf6; color: #2b1d16; padding: 40px; border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: 'Amiri', serif; font-size: clamp(1.1rem, 4vw, 1.8rem); line-height: 2; border-right: 8px solid var(--gold); }
+        /* SCROLL */
+        .scroll-container { max-width: 800px; max-height: 55vh; overflow-y: auto; background: #fdfaf6; color: #2b1d16; padding: 40px; border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: 'Amiri', serif; font-size: clamp(1.1rem, 4vw, 1.8rem); line-height: 2; border-right: 8px solid var(--gold); text-align: right; }
+
+        /* ROSE ANIMATION */
+        .rose-container { position: absolute; bottom: 0; width: 150px; height: 250px; opacity: 0.8; pointer-events: none; }
+        #rose-svg { width: 100%; height: 100%; stroke: var(--gold); fill: none; stroke-width: 2; stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 5s ease-in-out; }
+        .page.active #rose-svg { stroke-dashoffset: 0; }
 
         /* KISS EFFECT */
-        .kiss-mark {
-            position: absolute;
-            font-size: 2.5rem;
-            pointer-events: none;
-            user-select: none;
-            animation: floatUpFade 2s forwards;
-            z-index: 999;
-        }
-        @keyframes floatUpFade {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
-        }
+        .kiss-mark { position: absolute; font-size: 2.5rem; pointer-events: none; animation: floatUpFade 2s forwards; z-index: 999; }
+        @keyframes floatUpFade { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-100px) scale(1.5); } }
 
         .nav-dots { position: fixed; bottom: 30px; display: flex; gap: 10px; z-index: 100; }
-        .dot { width: 10px; height: 10px; border: 1px solid var(--gold); border-radius: 50%; transition: 0.3s; }
+        .dot { width: 10px; height: 10px; border: 1px solid var(--gold); border-radius: 50%; }
         .dot.active { background: var(--gold); width: 25px; border-radius: 10px; }
     </style>
 </head>
-<body onclick="handleGlobalClick(event)">
+<body onmousedown="handleGlobalClick(event)" ontouchstart="handleGlobalClick(event)">
 
     <canvas id="bg-canvas"></canvas>
 
-    <!-- PAGE 1: ENTRY -->
+    <!-- PAGE 1: ENTRY & CONSTELLATION -->
     <div class="page active" id="page1">
         <div class="subtitle">By Hashem | حج وداد</div>
         <h1>Our World</h1>
-        <p>A digital reflection of my love for you.</p>
+        <p style="margin-bottom: 20px; font-style: italic;">حركي يدج بين النجوم وشوفي حبنا..</p>
         <button class="lux-btn" onclick="nextPage(2)">Unlock My Heart</button>
     </div>
 
@@ -103,28 +95,23 @@
     <div class="page" id="page3">
         <div class="subtitle">Memory Matrix</div>
         <div id="game-container"></div>
-        <div style="margin-top: 15px; color: var(--gold);">Catch my feelings for you...</div>
         <button id="game-next" class="lux-btn" style="display: none;" onclick="nextPage(4)">Reach into the Jar</button>
     </div>
 
-    <!-- PAGE 4: THE LOVE JAR (AWWW PAGE) -->
+    <!-- PAGE 4: THE LOVE JAR -->
     <div class="page" id="page4">
-        <div class="subtitle">The Jar of Infinite Reasons</div>
         <div id="love-note"></div>
         <div class="jar-container" onclick="pullNote()">
             <div class="jar-lid"></div>
             <div class="jar">
-                <div class="jar-glow"></div>
                 <div style="position:absolute; bottom:40px; width:100%; color:var(--gold); font-weight:bold; font-size:0.8rem;">CLICK TO OPEN</div>
             </div>
         </div>
-        <p style="margin-top: 30px; font-style: italic; opacity: 0.8;">"In this jar, I've kept every reason why you are my forever."</p>
         <button class="lux-btn" id="jar-finish-btn" style="display:none;" onclick="nextPage(5)">Read my final letter</button>
     </div>
 
-    <!-- PAGE 5: THE LETTER (KUWAITI DIALECT) -->
+    <!-- PAGE 5: THE LETTER -->
     <div class="page" id="page5">
-        <div class="subtitle">A Message for Eternity</div>
         <div class="scroll-container">
             يا وداد يا شمعة حياتي وسندي<br><br>
             ما اصدق اننا الحين قاعدين نقرب من اول سنة لنا مع بعض سنة كاملة كنتي فيها انتي دنيتي وراحتي ومصدري الوحيد للقوة لما برمجت هالتطبيق كنت افكر فيـج وبكل لحظة جمعتنا ابي هالمكان يكون ذكرى دايمة لـج ان مهما كبرنا ومهما مرت السنين حبـج بقلبي يزيد ما ينقص انتي مو بس حبيبتي انتي دلوعتي اللي اخاف عليها من نسمة الهواء وانتي الملكة اللي اخترت اني اكون لها السند والامان طول العمر ادري ان المسافات احيانا تتعبنا وادري ان الشوق ياخذ من عافيتنا وايد بس والله يا وداد ان كل ثانية صبرتها وكل لحظة احاتيـج فيها تسوى عندي لان النهاية هي انتي اوعدج جدام الله وجدام نفسـج اني بكون الرجال اللي يخلي حياتـج كلها اعياد وافراح بكون السند اللي ما يميل والظهر اللي ترتجين عليه بكل وقت ماراح اخليـج تحتاجين لغيري ابد وبدلـعـج دلال يخلي الدنيا كلها تحسدج عليه شكراً لانـج تحملتي معاي كل شي وشكراً لانـج كنتي مؤمنة فيني وبقدراتي هالسنة كانت مجرد البداية والقادم بكون اجمل بوايد بـ ايدين بعض احبـج يا وداد حب ماله نهاية وان شاء الله كل سنة وانتي بجنبي وحلالي وام عيالي.
@@ -132,14 +119,17 @@
         <button class="lux-btn" onclick="nextPage(6)">Finish</button>
     </div>
 
-    <!-- PAGE 6: THE KISS PAGE -->
+    <!-- PAGE 6: THE BLOOM & KISS PAGE -->
     <div class="page" id="page6">
-        <h1>I Love You, Widad.</h1>
-        <p>Always and Forever.</p>
-        <div style="margin-top: 40px; color: var(--gold); font-weight: bold; border: 1px dashed var(--gold); padding: 15px; border-radius: 10px;">
-           كل طقة على هالصفحة هي بوسة من قلبي حج قلبج
+        <div class="rose-container">
+            <svg id="rose-svg" viewBox="0 0 100 150">
+                <path d="M50,140 Q50,100 50,60 M50,60 Q30,40 50,10 Q70,40 50,60 M50,80 Q20,70 10,90 M50,100 Q80,90 90,110" />
+                <path d="M50,40 Q40,30 35,20 Q50,0 65,20 Q60,30 50,40" fill="rgba(197,160,89,0.3)" />
+            </svg>
         </div>
-        <button class="lux-btn" onclick="nextPage(1)">Restart the Journey</button>
+        <h1>I Love You, Widad.</h1>
+        <p>كل طقة هي بوسة حج قلبج</p>
+        <button class="lux-btn" onclick="nextPage(1)">Restart Journey</button>
     </div>
 
     <div class="nav-dots">
@@ -148,8 +138,59 @@
 
     <script>
         let currentPage = 1;
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
 
-        // --- PAGE LOGIC ---
+        // --- BG & CONSTELLATION ENGINE ---
+        function initBG() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('touchmove', (e) => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
+
+        function drawBG() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(197, 160, 89, 0.8)";
+            
+            particles.forEach((p, i) => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                // CONSTELLATION LOGIC (Only if mouse is close)
+                let dx = mouse.x - p.x;
+                let dy = mouse.y - p.y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+                if(dist < 150) {
+                    ctx.strokeStyle = `rgba(197, 160, 89, ${1 - dist/150})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            });
+            requestAnimationFrame(drawBG);
+        }
+        initBG(); drawBG();
+
+        // --- PAGE NAVIGATION ---
         function nextPage(num) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page' + num).classList.add('active');
@@ -158,41 +199,19 @@
             if(num === 3) initGame();
         }
 
-        // --- KISSING ENGINE ---
+        // --- KISSES ---
         function handleGlobalClick(e) {
-            if (currentPage !== 6) return; // Only work on page 6
-            
-            // Create kiss element
+            if (currentPage !== 6) return;
+            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
             const kiss = document.createElement('div');
             kiss.className = 'kiss-mark';
             kiss.innerHTML = '💋';
-            kiss.style.left = (e.clientX - 20) + 'px';
-            kiss.style.top = (e.clientY - 20) + 'px';
-            
-            // Add to body
+            kiss.style.left = (x - 20) + 'px';
+            kiss.style.top = (y - 20) + 'px';
             document.body.appendChild(kiss);
-            
-            // Remove after animation
-            setTimeout(() => {
-                kiss.remove();
-            }, 2000);
+            setTimeout(() => kiss.remove(), 2000);
         }
-
-        // --- BG ENGINE ---
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        function initBG() {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<80; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 2, speed: Math.random() * 0.4 });
-        }
-        function drawBG() {
-            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = 'rgba(197, 160, 89, 0.4)';
-            particles.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill(); p.y -= p.speed; if(p.y < 0) p.y = canvas.height; });
-            requestAnimationFrame(drawBG);
-        }
-        initBG(); drawBG();
 
         // --- TIMER ---
         const target = new Date(); target.setDate(target.getDate() + 14);
@@ -204,48 +223,29 @@
             document.getElementById('secs').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
         }, 1000);
 
-        // --- GAME (KUWAITI WORDS) ---
-        const gameWords = ["دلوعتي", "روحي", "شطورتي", "Love", "Widad", "Hashem", "Together", "Always", "Forever", "Destiny", "Soulmate"];
-        let found = 0;
+        // --- GAME ---
+        const gameWords = ["دلوعتي", "روحي", "شطورتي", "Love", "Widad", "Hashem", "Forever", "Soulmate", "Infinity"];
         function initGame() {
-            const container = document.getElementById('game-container'); container.innerHTML = ""; found = 0;
+            const container = document.getElementById('game-container'); container.innerHTML = "";
+            let found = 0;
             gameWords.forEach(word => {
                 const b = document.createElement('div'); b.className = 'memory-bubble'; b.innerText = word;
-                b.style.left = Math.random() * 70 + 10 + "%"; b.style.top = Math.random() * 70 + 10 + "%";
-                let vx = (Math.random()-0.5)*2; let vy = (Math.random()-0.5)*2;
-                function move() {
-                    let lx = parseFloat(b.style.left), ly = parseFloat(b.style.top);
-                    if(lx < 5 || lx > 85) vx *= -1; if(ly < 5 || ly > 85) vy *= -1;
-                    b.style.left = (lx + vx * 0.1) + "%"; b.style.top = (ly + vy * 0.1) + "%";
-                    if(b.parentNode) requestAnimationFrame(move);
-                }
-                b.onclick = (e) => { e.stopPropagation(); b.style.transform = "scale(0)"; setTimeout(()=>b.remove(),200); found++; if(found >= 11) document.getElementById('game-next').style.display="inline-block"; };
-                container.appendChild(b); move();
+                b.style.left = Math.random() * 80 + 10 + "%"; b.style.top = Math.random() * 80 + 10 + "%";
+                b.onclick = (e) => { e.stopPropagation(); b.style.transform="scale(0)"; found++; if(found >= gameWords.length) document.getElementById('game-next').style.display="block"; };
+                container.appendChild(b);
             });
         }
 
-        // --- JAR LOGIC (KUWAITI REASONS) ---
-        const reasons = [
-            "لأنـج أجمل شي صار في دنيتي ✨",
-            "لأن ضحكتـج تنسيني كل تعبي ❤️",
-            "لأنـج سندي وأماني في هالعالم 🌙",
-            "لأنـج ملكة قلبي ودلوعتي اللي ما أرفض لها طلب 💍",
-            "لأنـج شطورتي اللي دايم ترفع راسي ♾️",
-            "لأن حبـج هو اللي يعطيني القوة أواجه كل شي 🌹",
-            "لأنـج بتكونين أجمل أم لعيالي بإذن الله 👶",
-            "لأنـج روحي اللي ما أقدر أعيش بدونها 💞"
-        ];
-        let reasonIdx = 0;
+        // --- JAR ---
+        const reasons = ["لأنـج أجمل شي صار في دنيتي ✨", "لأن ضحكتـج تنسيني كل تعبي ❤️", "لأنـج سندي وأماني 🌙", "لأنـج ملكة قلبي ودلوعتي 💍", "لأن حبـج يعطيني القوة 🌹", "لأنـج روحي اللي ما أقدر أعيش بدونها 💞"];
+        let rIdx = 0;
         function pullNote() {
             const note = document.getElementById('love-note');
-            note.innerText = reasons[reasonIdx];
-            note.classList.remove('active');
-            void note.offsetWidth; 
+            note.innerText = reasons[rIdx % reasons.length];
             note.classList.add('active');
-            reasonIdx++;
-            if(reasonIdx >= reasons.length) {
-                document.getElementById('jar-finish-btn').style.display = "inline-block";
-            }
+            setTimeout(() => note.classList.remove('active'), 2500);
+            rIdx++;
+            if(rIdx >= reasons.length) document.getElementById('jar-finish-btn').style.display = "block";
         }
     </script>
 </body>

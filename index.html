@@ -12,6 +12,7 @@
             --caramel: #8d6e63;
             --latte: #d7ccc8;
             --gold: #c5a059;
+            --kiss-red: #a52a2a;
             --white-glass: rgba(255, 255, 255, 0.1);
             --transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -26,7 +27,7 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5rem); color: var(--gold); margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .subtitle { font-size: 1.2rem; letter-spacing: 5px; text-transform: uppercase; color: var(--caramel); margin-bottom: 40px; }
 
-        .lux-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 18px 45px; font-size: 1rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.4s; margin-top: 20px; border-radius: 4px; }
+        .lux-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 18px 45px; font-size: 1rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.4s; margin-top: 20px; border-radius: 4px; z-index: 10; }
         .lux-btn:hover { background: var(--gold); color: var(--espresso); box-shadow: 0 0 30px rgba(197, 160, 89, 0.4); }
 
         /* TIMER */
@@ -54,12 +55,26 @@
         /* ARABIC SCROLL */
         .scroll-container { max-width: 800px; max-height: 55vh; overflow-y: auto; background: #fdfaf6; color: #2b1d16; padding: 40px; border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: 'Amiri', serif; font-size: clamp(1.1rem, 4vw, 1.8rem); line-height: 2; border-right: 8px solid var(--gold); }
 
+        /* KISS EFFECT */
+        .kiss-mark {
+            position: absolute;
+            font-size: 2.5rem;
+            pointer-events: none;
+            user-select: none;
+            animation: floatUpFade 2s forwards;
+            z-index: 999;
+        }
+        @keyframes floatUpFade {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
+        }
+
         .nav-dots { position: fixed; bottom: 30px; display: flex; gap: 10px; z-index: 100; }
         .dot { width: 10px; height: 10px; border: 1px solid var(--gold); border-radius: 50%; transition: 0.3s; }
         .dot.active { background: var(--gold); width: 25px; border-radius: 10px; }
     </style>
 </head>
-<body>
+<body onclick="handleGlobalClick(event)">
 
     <canvas id="bg-canvas"></canvas>
 
@@ -117,9 +132,13 @@
         <button class="lux-btn" onclick="nextPage(6)">Finish</button>
     </div>
 
+    <!-- PAGE 6: THE KISS PAGE -->
     <div class="page" id="page6">
         <h1>I Love You, Widad.</h1>
         <p>Always and Forever.</p>
+        <div style="margin-top: 40px; color: var(--gold); font-weight: bold; border: 1px dashed var(--gold); padding: 15px; border-radius: 10px;">
+           كل طقة على هالصفحة هي بوسة من قلبي حج قلبج
+        </div>
         <button class="lux-btn" onclick="nextPage(1)">Restart the Journey</button>
     </div>
 
@@ -128,12 +147,35 @@
     </div>
 
     <script>
+        let currentPage = 1;
+
         // --- PAGE LOGIC ---
         function nextPage(num) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page' + num).classList.add('active');
             document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === num - 1));
+            currentPage = num;
             if(num === 3) initGame();
+        }
+
+        // --- KISSING ENGINE ---
+        function handleGlobalClick(e) {
+            if (currentPage !== 6) return; // Only work on page 6
+            
+            // Create kiss element
+            const kiss = document.createElement('div');
+            kiss.className = 'kiss-mark';
+            kiss.innerHTML = '💋';
+            kiss.style.left = (e.clientX - 20) + 'px';
+            kiss.style.top = (e.clientY - 20) + 'px';
+            
+            // Add to body
+            document.body.appendChild(kiss);
+            
+            // Remove after animation
+            setTimeout(() => {
+                kiss.remove();
+            }, 2000);
         }
 
         // --- BG ENGINE ---
@@ -177,7 +219,7 @@
                     b.style.left = (lx + vx * 0.1) + "%"; b.style.top = (ly + vy * 0.1) + "%";
                     if(b.parentNode) requestAnimationFrame(move);
                 }
-                b.onclick = () => { b.style.transform = "scale(0)"; setTimeout(()=>b.remove(),200); found++; if(found >= 11) document.getElementById('game-next').style.display="inline-block"; };
+                b.onclick = (e) => { e.stopPropagation(); b.style.transform = "scale(0)"; setTimeout(()=>b.remove(),200); found++; if(found >= 11) document.getElementById('game-next').style.display="inline-block"; };
                 container.appendChild(b); move();
             });
         }
@@ -185,7 +227,7 @@
         // --- JAR LOGIC (KUWAITI REASONS) ---
         const reasons = [
             "لأنـج أجمل شي صار في دنيتي ✨",
-            "لأن ضحكتج تنسيني كل تعبي ❤️",
+            "لأن ضحكتـج تنسيني كل تعبي ❤️",
             "لأنـج سندي وأماني في هالعالم 🌙",
             "لأنـج ملكة قلبي ودلوعتي اللي ما أرفض لها طلب 💍",
             "لأنـج شطورتي اللي دايم ترفع راسي ♾️",

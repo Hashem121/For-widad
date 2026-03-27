@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Widad: The Infinity Chapter</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@0,400;0,900;1,700&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --espresso: #241812;
@@ -19,192 +17,44 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--espresso); color: var(--latte); font-family: 'Montserrat', sans-serif; overflow: hidden; height: 100vh; }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, var(--mocha), var(--espresso)); }
 
-        body {
-            background-color: var(--espresso);
-            color: var(--latte);
-            font-family: 'Montserrat', sans-serif;
-            overflow: hidden;
-            height: 100vh;
-        }
+        .page { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; opacity: 0; transform: translateY(50px); visibility: hidden; transition: var(--transition); text-align: center; }
+        .page.active { opacity: 1; transform: translateY(0); visibility: visible; }
 
-        #bg-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, var(--mocha), var(--espresso));
-        }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5rem); color: var(--gold); margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .subtitle { font-size: 1.2rem; letter-spacing: 5px; text-transform: uppercase; color: var(--caramel); margin-bottom: 40px; }
 
-        .page {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            opacity: 0;
-            transform: translateY(50px);
-            visibility: hidden;
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .page.active {
-            opacity: 1;
-            transform: translateY(0);
-            visibility: visible;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            color: var(--gold);
-            margin-bottom: 20px;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--caramel);
-            margin-bottom: 40px;
-        }
-
-        .lux-btn {
-            background: none;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 18px 45px;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: 0.4s;
-            margin-top: 20px;
-            border-radius: 4px;
-        }
-
-        .lux-btn:hover {
-            background: var(--gold);
-            color: var(--espresso);
-            box-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
-        }
+        .lux-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 18px 45px; font-size: 1rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.4s; margin-top: 20px; border-radius: 4px; }
+        .lux-btn:hover { background: var(--gold); color: var(--espresso); box-shadow: 0 0 30px rgba(197, 160, 89, 0.4); }
 
         /* TIMER */
-        .timer-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 30px 0;
-        }
+        .timer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 30px 0; }
         @media(min-width: 600px) { .timer-grid { grid-template-columns: repeat(4, 1fr); } }
-
-        .timer-box {
-            background: var(--white-glass);
-            padding: 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            min-width: 100px;
-        }
+        .timer-box { background: var(--white-glass); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); min-width: 100px; }
         .timer-val { font-size: 2.5rem; font-weight: bold; color: var(--gold); display: block; }
         .timer-label { font-size: 0.7rem; color: var(--latte); text-transform: uppercase; }
 
-        /* MEMORY GAME */
-        #game-container {
-            width: 100%;
-            max-width: 800px;
-            height: 450px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            border: 1px solid var(--gold);
-            position: relative;
-            cursor: crosshair;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        .memory-bubble {
-            position: absolute;
-            padding: 12px 25px;
-            background: var(--gold);
-            color: var(--espresso);
-            border-radius: 50px;
-            font-weight: bold;
-            font-family: 'Amiri', serif;
-            font-size: 1.4rem;
-            white-space: nowrap;
-            user-select: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+        /* GAME BUBBLES */
+        #game-container { width: 100%; max-width: 800px; height: 400px; background: rgba(0,0,0,0.2); border-radius: 20px; border: 1px solid var(--gold); position: relative; overflow: hidden; margin-bottom: 20px; }
+        .memory-bubble { position: absolute; padding: 10px 20px; background: var(--gold); color: var(--espresso); border-radius: 50px; font-weight: bold; font-family: 'Amiri', serif; font-size: 1.3rem; cursor: pointer; transition: transform 0.2s; white-space: nowrap; }
 
-        /* POLAROID GALLERY */
-        .gallery {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 1000px;
-        }
-        .polaroid {
-            background: white;
-            padding: 15px 15px 40px 15px;
-            width: 200px;
-            height: 250px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transform: rotate(-3deg);
-            transition: 0.5s;
-            cursor: pointer;
-            color: #333;
-        }
-        .polaroid:nth-child(even) { transform: rotate(3deg); }
-        .polaroid:hover { transform: rotate(0) scale(1.1); z-index: 10; }
-        .pol-img { 
-            width: 100%; height: 170px; 
-            background: var(--latte); 
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3rem;
-        }
-        .pol-caption { font-family: 'Amiri', serif; margin-top: 15px; font-weight: bold; }
+        /* THE LOVE JAR */
+        .jar-container { position: relative; width: 200px; height: 280px; cursor: pointer; transition: transform 0.3s; }
+        .jar-container:hover { transform: scale(1.05); }
+        .jar { width: 100%; height: 100%; background: rgba(255, 255, 255, 0.15); border: 4px solid var(--gold); border-radius: 40px 40px 20px 20px; position: relative; box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.3), 0 10px 30px rgba(0,0,0,0.5); }
+        .jar-lid { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: var(--gold); border-radius: 10px; }
+        .jar-glow { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; background: var(--gold); filter: blur(40px); opacity: 0.5; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 0.7; } 100% { opacity: 0.3; } }
+        
+        #love-note { position: absolute; bottom: 350px; background: #fff; color: #333; padding: 20px 30px; border-radius: 10px; font-family: 'Amiri', serif; font-size: 1.6rem; min-width: 300px; opacity: 0; transform: translateY(20px); transition: 0.5s; box-shadow: 0 10px 40px rgba(0,0,0,0.8); pointer-events: none; z-index: 100; text-align: center; }
+        #love-note.active { opacity: 1; transform: translateY(0); }
 
         /* ARABIC SCROLL */
-        .scroll-container {
-            max-width: 800px;
-            max-height: 55vh;
-            overflow-y: auto;
-            background: #fdfaf6;
-            color: #2b1d16;
-            padding: 40px;
-            border-radius: 5px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            font-family: 'Amiri', serif;
-            font-size: clamp(1.1rem, 4vw, 1.8rem);
-            line-height: 2;
-            border-right: 8px solid var(--gold);
-        }
+        .scroll-container { max-width: 800px; max-height: 55vh; overflow-y: auto; background: #fdfaf6; color: #2b1d16; padding: 40px; border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: 'Amiri', serif; font-size: clamp(1.1rem, 4vw, 1.8rem); line-height: 2; border-right: 8px solid var(--gold); }
 
-        /* FINAL GARDEN */
-        #garden-canvas {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-        }
-
-        .nav-dots {
-            position: fixed;
-            bottom: 30px;
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-        }
+        .nav-dots { position: fixed; bottom: 30px; display: flex; gap: 10px; z-index: 100; }
         .dot { width: 10px; height: 10px; border: 1px solid var(--gold); border-radius: 50%; transition: 0.3s; }
         .dot.active { background: var(--gold); width: 25px; border-radius: 10px; }
     </style>
@@ -213,91 +63,72 @@
 
     <canvas id="bg-canvas"></canvas>
 
+    <!-- PAGE 1: ENTRY -->
     <div class="page active" id="page1">
-        <div class="subtitle">By Hashem, with everything he has.</div>
-        <h1>Widad's Space</h1>
-        <p>A place built with code, powered by my heart.</p>
-        <button class="lux-btn" onclick="nextPage(2)">Unlock the Experience</button>
+        <div class="subtitle">By Hashem | حج وداد</div>
+        <h1>Our World</h1>
+        <p>A digital reflection of my love for you.</p>
+        <button class="lux-btn" onclick="nextPage(2)">Unlock My Heart</button>
     </div>
 
+    <!-- PAGE 2: TIMER -->
     <div class="page" id="page2">
-        <div class="subtitle">The Countdown</div>
-        <h2 style="font-size: 2.5rem; color: var(--gold);">Our 1st Anniversary</h2>
-        <p>Two weeks until our first year is officially forever.</p>
-        
+        <div class="subtitle">Counting the moments</div>
+        <h2 style="font-size: 2rem; color: var(--gold);">Our 1st Anniversary</h2>
         <div class="timer-grid">
             <div class="timer-box"><span class="timer-val" id="days">00</span><span class="timer-label">Days</span></div>
             <div class="timer-box"><span class="timer-val" id="hours">00</span><span class="timer-label">Hours</span></div>
             <div class="timer-box"><span class="timer-val" id="mins">00</span><span class="timer-label">Minutes</span></div>
             <div class="timer-box"><span class="timer-val" id="secs">00</span><span class="timer-label">Seconds</span></div>
         </div>
-
-        <button class="lux-btn" onclick="nextPage(3)">Open the Matrix</button>
+        <button class="lux-btn" onclick="nextPage(3)">Play with my feelings</button>
     </div>
 
+    <!-- PAGE 3: THE GAME -->
     <div class="page" id="page3">
-        <div class="subtitle">The Memory Matrix</div>
-        <p style="margin-bottom: 20px;">Catch my feelings for you...</p>
+        <div class="subtitle">Memory Matrix</div>
         <div id="game-container"></div>
-        <div id="game-stats" style="font-size: 1.5rem; color: var(--gold);">Found: <span id="score">0</span> / 11</div>
-        <button id="game-next" class="lux-btn" style="display: none;" onclick="nextPage(4)">Look at our gallery</button>
+        <div style="margin-top: 15px; color: var(--gold);">Catch my feelings for you...</div>
+        <button id="game-next" class="lux-btn" style="display: none;" onclick="nextPage(4)">Reach into the Jar</button>
     </div>
 
+    <!-- PAGE 4: THE LOVE JAR (AWWW PAGE) -->
     <div class="page" id="page4">
-        <div class="subtitle">Reasons for you</div>
-        <h1>Why I Love You</h1>
-        <div class="gallery">
-            <div class="polaroid">
-                <div class="pol-img">✨</div>
-                <div class="pol-caption">جمال قلبك</div>
-            </div>
-            <div class="polaroid">
-                <div class="pol-img">🌙</div>
-                <div class="pol-caption">نور حياتي</div>
-            </div>
-            <div class="polaroid">
-                <div class="pol-img">♾️</div>
-                <div class="pol-caption">مستقبلي معاك</div>
-            </div>
-            <div class="polaroid">
-                <div class="pol-img">💍</div>
-                <div class="pol-caption">حلالي وأم عيالي</div>
+        <div class="subtitle">The Jar of Infinite Reasons</div>
+        <div id="love-note"></div>
+        <div class="jar-container" onclick="pullNote()">
+            <div class="jar-lid"></div>
+            <div class="jar">
+                <div class="jar-glow"></div>
+                <div style="position:absolute; bottom:40px; width:100%; color:var(--gold); font-weight:bold; font-size:0.8rem;">CLICK TO OPEN</div>
             </div>
         </div>
-        <button class="lux-btn" style="margin-top: 50px;" onclick="nextPage(5)">Read my heart</button>
+        <p style="margin-top: 30px; font-style: italic; opacity: 0.8;">"In this jar, I've kept every reason why you are my forever."</p>
+        <button class="lux-btn" id="jar-finish-btn" style="display:none;" onclick="nextPage(5)">Read my final letter</button>
     </div>
 
+    <!-- PAGE 5: THE LETTER (KUWAITI DIALECT) -->
     <div class="page" id="page5">
         <div class="subtitle">A Message for Eternity</div>
         <div class="scroll-container">
             يا وداد يا شمعة حياتي وسندي<br><br>
-            ما اصدق اننا الحين قاعدين نقرب من اول سنة لنا مع بعض سنة كاملة كنتي فيها انتي دنيتي وراحتي ومصدري الوحيد للقوة لما برمجت هالتطبيق كنت افكر فيـج وبكل لحظة جمعتنا ابي هالمكان يكون ذكرى دايمة لـج ان مهما كبرنا ومهما مرت السنين حبـج بقلبي يزيد ما ينقص انتي مو بس حبيبتي انتي دلوعتي اللي اخاف عليها من نسمة الهواء وانتي الملكة اللي اخترت اني اكون لها السند والامان طول العمرادري ان المسافات احيانا تتعبنا وادري ان الشوق ياخذ من عافيتنا وايد بس والله يا وداد ان كل ثانية صبرتها وكل لحظة احاتيـج فيها تسوى عندي لان النهاية هي انتي اوعدج جدام الله وجدام نفسـج اني بكون الرجال اللي يخلي حياتـج كلها اعياد وافراح بكون السند اللي ما يميل والظهر اللي ترتجين عليه بكل وقت ماراح اخليـج تحتاجين لغيري ابد وبدلـعـج دلال يخلي الدنيا كلها تحسدج عليه شكراً لانـج تحملتي معاي كل شي وشكراً لانـج كنتي مؤمنة فيني وبقدراتي هالسنة كانت مجرد البداية والقادم بكون اجمل بوايد بـ ايدين بعض احبـج يا وداد حب ماله نهاية وان شاء الله كل سنة وانتي بجنبي وحلالي وام عيالي.
+            ما اصدق اننا الحين قاعدين نقرب من اول سنة لنا مع بعض سنة كاملة كنتي فيها انتي دنيتي وراحتي ومصدري الوحيد للقوة لما برمجت هالتطبيق كنت افكر فيـج وبكل لحظة جمعتنا ابي هالمكان يكون ذكرى دايمة لـج ان مهما كبرنا ومهما مرت السنين حبـج بقلبي يزيد ما ينقص انتي مو بس حبيبتي انتي دلوعتي اللي اخاف عليها من نسمة الهواء وانتي الملكة اللي اخترت اني اكون لها السند والامان طول العمر ادري ان المسافات احيانا تتعبنا وادري ان الشوق ياخذ من عافيتنا وايد بس والله يا وداد ان كل ثانية صبرتها وكل لحظة احاتيـج فيها تسوى عندي لان النهاية هي انتي اوعدج جدام الله وجدام نفسـج اني بكون الرجال اللي يخلي حياتـج كلها اعياد وافراح بكون السند اللي ما يميل والظهر اللي ترتجين عليه بكل وقت ماراح اخليـج تحتاجين لغيري ابد وبدلـعـج دلال يخلي الدنيا كلها تحسدج عليه شكراً لانـج تحملتي معاي كل شي وشكراً لانـج كنتي مؤمنة فيني وبقدراتي هالسنة كانت مجرد البداية والقادم بكون اجمل بوايد بـ ايدين بعض احبـج يا وداد حب ماله نهاية وان شاء الله كل سنة وانتي بجنبي وحلالي وام عيالي.
         </div>
-        <button class="lux-btn" onclick="nextPage(6)">Grow our Love</button>
+        <button class="lux-btn" onclick="nextPage(6)">Finish</button>
     </div>
 
     <div class="page" id="page6">
-        <canvas id="garden-canvas"></canvas>
-        <div class="subtitle">Chapter Infinity</div>
-        <h1>Every click is a kiss.</h1>
-        <p>Click anywhere to fill the world with love for you.</p>
-        <div style="margin-top: 100px;">
-            <p style="color: var(--gold); font-weight: bold;">Forever Yours, Hashem</p>
-        </div>
-        <button class="lux-btn" onclick="nextPage(1)">Back to Start</button>
+        <h1>I Love You, Widad.</h1>
+        <p>Always and Forever.</p>
+        <button class="lux-btn" onclick="nextPage(1)">Restart the Journey</button>
     </div>
 
     <div class="nav-dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+        <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
     <script>
-        // --- PAGE ENGINE ---
+        // --- PAGE LOGIC ---
         function nextPage(num) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page' + num).classList.add('active');
@@ -305,104 +136,75 @@
             if(num === 3) initGame();
         }
 
-        // --- BG PARTICLES ---
+        // --- BG ENGINE ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
         function initBG() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             particles = [];
-            for(let i=0; i<100; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 2, speed: Math.random() * 0.5 });
+            for(let i=0; i<80; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 2, speed: Math.random() * 0.4 });
         }
         function drawBG() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(197, 160, 89, 0.4)';
-            particles.forEach(p => {
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
-                p.y -= p.speed; if(p.y < 0) p.y = canvas.height;
-            });
+            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = 'rgba(197, 160, 89, 0.4)';
+            particles.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill(); p.y -= p.speed; if(p.y < 0) p.y = canvas.height; });
             requestAnimationFrame(drawBG);
         }
         initBG(); drawBG();
-        window.onresize = initBG;
 
         // --- TIMER ---
-        function updateTimer() {
-            const target = new Date(); target.setDate(target.getDate() + 14); 
-            setInterval(() => {
-                const diff = target - new Date();
-                document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
-                document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-                document.getElementById('mins').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-                document.getElementById('secs').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-            }, 1000);
-        }
-        updateTimer();
+        const target = new Date(); target.setDate(target.getDate() + 14);
+        setInterval(() => {
+            const diff = target - new Date();
+            document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+            document.getElementById('mins').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+            document.getElementById('secs').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+        }, 1000);
 
-        // --- GAME: UPDATED WORDS ---
+        // --- GAME (KUWAITI WORDS) ---
         const gameWords = ["دلوعتي", "روحي", "شطورتي", "Love", "Widad", "Hashem", "Together", "Always", "Forever", "Destiny", "Soulmate"];
         let found = 0;
         function initGame() {
-            const container = document.getElementById('game-container');
-            container.innerHTML = ""; found = 0;
-            document.getElementById('score').innerText = "0";
-            document.getElementById('game-next').style.display = "none";
-
+            const container = document.getElementById('game-container'); container.innerHTML = ""; found = 0;
             gameWords.forEach(word => {
-                const b = document.createElement('div');
-                b.className = 'memory-bubble';
-                b.innerText = word;
-                b.style.left = Math.random() * 70 + 10 + "%";
-                b.style.top = Math.random() * 70 + 10 + "%";
-                let vx = (Math.random() - 0.5) * 2; let vy = (Math.random() - 0.5) * 2;
+                const b = document.createElement('div'); b.className = 'memory-bubble'; b.innerText = word;
+                b.style.left = Math.random() * 70 + 10 + "%"; b.style.top = Math.random() * 70 + 10 + "%";
+                let vx = (Math.random()-0.5)*2; let vy = (Math.random()-0.5)*2;
                 function move() {
                     let lx = parseFloat(b.style.left), ly = parseFloat(b.style.top);
                     if(lx < 5 || lx > 85) vx *= -1; if(ly < 5 || ly > 85) vy *= -1;
                     b.style.left = (lx + vx * 0.1) + "%"; b.style.top = (ly + vy * 0.1) + "%";
                     if(b.parentNode) requestAnimationFrame(move);
                 }
-                b.onclick = () => {
-                    b.style.transform = "scale(0)"; setTimeout(() => b.remove(), 200);
-                    found++; document.getElementById('score').innerText = found;
-                    if(found >= gameWords.length) document.getElementById('game-next').style.display = "inline-block";
-                };
+                b.onclick = () => { b.style.transform = "scale(0)"; setTimeout(()=>b.remove(),200); found++; if(found >= 11) document.getElementById('game-next').style.display="inline-block"; };
                 container.appendChild(b); move();
             });
         }
 
-        // --- FINAL GARDEN: HEART CLICKS ---
-        const gCanvas = document.getElementById('garden-canvas');
-        const gCtx = gCanvas.getContext('2d');
-        gCanvas.width = window.innerWidth; gCanvas.height = window.innerHeight;
-        let gardenHearts = [];
-
-        window.addEventListener('mousedown', (e) => {
-            if(!document.getElementById('page6').classList.contains('active')) return;
-            for(let i=0; i<5; i++) {
-                gardenHearts.push({
-                    x: e.clientX, y: e.clientY,
-                    size: Math.random() * 20 + 10,
-                    vx: (Math.random() - 0.5) * 10,
-                    vy: (Math.random() - 0.5) * 10 - 5,
-                    life: 1.0,
-                    color: `hsl(${Math.random() * 30 + 10}, 70%, 60%)`
-                });
+        // --- JAR LOGIC (KUWAITI REASONS) ---
+        const reasons = [
+            "لأنـج أجمل شي صار في دنيتي ✨",
+            "لأن ضحكتج تنسيني كل تعبي ❤️",
+            "لأنـج سندي وأماني في هالعالم 🌙",
+            "لأنـج ملكة قلبي ودلوعتي اللي ما أرفض لها طلب 💍",
+            "لأنـج شطورتي اللي دايم ترفع راسي ♾️",
+            "لأن حبـج هو اللي يعطيني القوة أواجه كل شي 🌹",
+            "لأنـج بتكونين أجمل أم لعيالي بإذن الله 👶",
+            "لأنـج روحي اللي ما أقدر أعيش بدونها 💞"
+        ];
+        let reasonIdx = 0;
+        function pullNote() {
+            const note = document.getElementById('love-note');
+            note.innerText = reasons[reasonIdx];
+            note.classList.remove('active');
+            void note.offsetWidth; 
+            note.classList.add('active');
+            reasonIdx++;
+            if(reasonIdx >= reasons.length) {
+                document.getElementById('jar-finish-btn').style.display = "inline-block";
             }
-        });
-
-        function drawGarden() {
-            gCtx.clearRect(0,0,gCanvas.width, gCanvas.height);
-            gardenHearts.forEach((h, i) => {
-                gCtx.globalAlpha = h.life;
-                gCtx.fillStyle = h.color;
-                gCtx.font = h.size + "px serif";
-                gCtx.fillText("❤", h.x, h.y);
-                h.x += h.vx; h.y += h.vy; h.vy += 0.2; h.life -= 0.01;
-                if(h.life <= 0) gardenHearts.splice(i, 1);
-            });
-            requestAnimationFrame(drawGarden);
         }
-        drawGarden();
     </script>
 </body>
 </html>

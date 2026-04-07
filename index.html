@@ -20,7 +20,8 @@
         #canvas-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6; pointer-events: none; }
         .app-container { position: relative; z-index: 10; width: 100%; height: 100%; }
 
-        #youtube-player { position: absolute; top: -9999px; left: -9999px; visibility: hidden; pointer-events: none; }
+        /* Audio Helper */
+        #player-container { position: absolute; top: -999px; visibility: hidden; }
 
         .screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -31,32 +32,12 @@
         }
         .screen.active { opacity: 1; visibility: visible; transform: scale(1); }
 
-        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 7vw, 3.5rem); color: var(--gold); margin-bottom: 10px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 8vw, 3.8rem); color: var(--gold); margin-bottom: 10px; }
         .date-badge { font-weight: 200; letter-spacing: 4px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid var(--gold); padding-bottom: 5px; font-size: 0.8rem; }
         
-        /* Volume Prompt Styling */
-        .volume-prompt {
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            animation: fadeInOut 2s infinite ease-in-out;
-        }
-        .volume-prompt span {
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            color: var(--gold);
-            text-transform: uppercase;
-        }
-        .speaker-icon {
-            font-size: 1.5rem;
-            color: var(--gold);
-        }
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0.4; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(-5px); }
-        }
+        .volume-prompt { margin-bottom: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; animation: fadeInOut 2s infinite; }
+        .volume-prompt span { font-size: 0.7rem; letter-spacing: 3px; color: var(--gold); }
+        @keyframes fadeInOut { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
         .btn-gold {
             background: none; border: 1px solid var(--gold); color: var(--gold);
@@ -67,15 +48,12 @@
         .btn-gold:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
 
         .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; width: 100%; max-width: 400px; }
-        .ans-btn { background: var(--glass); border: 1px solid rgba(212,175,55,0.2); color: var(--text); padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-family: 'Amiri', serif; }
+        .ans-btn { background: var(--glass); border: 1px solid rgba(212,175,55,0.2); color: var(--text); padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-family: 'Amiri', serif; font-size: 1.1rem; }
 
         #game-box { width: 90%; max-width: 500px; height: 400px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px solid rgba(212,175,55,0.2); position: relative; overflow: hidden; margin: 20px 0; }
-        .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; font-size: 1.1rem; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3); user-select: none; }
+        .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; font-size: 1.1rem; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
-        .letter-scroll { background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; max-width: 600px; max-height: 60vh; overflow-y: auto; font-family: 'Amiri', serif; font-size: clamp(1.1rem, 4.5vw, 1.6rem); line-height: 2.2; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: justify; border-right: 6px solid var(--gold); -webkit-overflow-scrolling: touch; }
-
-        .garden-mark { position: absolute; font-size: 2.5rem; pointer-events: none; animation: floatOut 2s forwards; z-index: 999; }
-        @keyframes floatOut { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(2) translateY(-150px); } }
+        .letter-scroll { background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; max-width: 600px; max-height: 60vh; overflow-y: auto; font-family: 'Amiri', serif; font-size: clamp(1.1rem, 4.5vw, 1.6rem); line-height: 2.2; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: justify; border-right: 6px solid var(--gold); }
 
         #music-ui { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.7); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--gold); z-index: 200; font-size: 0.7rem; color: var(--gold); cursor: pointer; visibility: hidden; }
         .wave { width: 3px; height: 12px; background: var(--gold); animation: wave 1s infinite alternate; }
@@ -89,29 +67,27 @@
 <body>
 
     <canvas id="canvas-stars"></canvas>
-    <div id="youtube-player"></div>
+    
+    <div id="player-container"><div id="player"></div></div>
 
     <div class="app-container">
         <section class="screen active" id="s1">
             <div class="date-badge">APRIL 8, 2026</div>
             <h1>Widad & Hashem</h1>
-            <p style="margin-bottom: 40px;">One year ago, my world changed forever.</p>
-            
+            <p style="margin-bottom: 30px;">One year of magic, 365 days of us.</p>
             <div class="volume-prompt">
-                <div class="speaker-icon">🔊</div>
-                <span>Please turn your volume up</span>
+                <span style="font-size: 1.5rem;">🔊</span>
+                <span>Turn volume up for the full experience</span>
             </div>
-            
-            <button class="btn-gold" id="start-btn" onclick="startApp()">Start Our Journey</button>
+            <button class="btn-gold" onclick="startApp()">Start Our Journey</button>
         </section>
 
         <section class="screen" id="s2">
-            <h2 style="font-family: 'Amiri', serif; font-size: 2rem;">منو أكثر واحد يحبج بهالدنيا؟</h2>
+            <h2 style="font-family: 'Amiri', serif; font-size: 2.2rem;">منو أكثر واحد يحبج بهالدنيا؟</h2>
             <div class="quiz-grid">
                 <button class="ans-btn" onclick="checkQuiz(this)">Hashem</button>
                 <button class="ans-btn" onclick="checkQuiz(this)">انتي</button>
-                <button class="ans-btn" onclick="checkQuiz(this)">اهلج</button>
-                <button class="ans-btn" onclick="checkQuiz(this)">الكل</button>
+                <button class="ans-btn" onclick="checkQuiz(this)">رفيجاتج</button> <button class="ans-btn" onclick="checkQuiz(this)">الكل</button>
             </div>
             <button id="quiz-next" class="btn-gold" style="display:none;" onclick="go(3)">Unlock My Heart</button>
         </section>
@@ -119,8 +95,8 @@
         <section class="screen" id="s3">
             <div class="date-badge">CATCH THE FEELINGS</div>
             <div id="game-box"></div>
-            <p style="font-size: 0.7rem; color: var(--gold);">Click all the words to see my message...</p>
-            <button id="game-btn" class="btn-gold" style="display:none;" onclick="go(4)">Open the Letter</button>
+            <p style="font-size: 0.7rem; color: var(--gold);">Click all the floating words to unlock my letter...</p>
+            <button id="game-btn" class="btn-gold" style="display:none;" onclick="go(4)">Open the Final Scroll</button>
         </section>
 
         <section class="screen" id="s4">
@@ -132,7 +108,7 @@
 
         <section class="screen" id="s5">
             <h1>Forever Starts Now</h1>
-            <p>Tap the screen to fill the air with my love.</p>
+            <p>Tap the screen to grow our love garden.</p>
             <div style="margin-top: 40px; color: var(--gold);">
                 <p style="font-size: 1.4rem; font-weight: bold;">Hashem & Widad</p>
                 <p style="font-size: 0.7rem; letter-spacing: 5px;">TO INFINITY</p>
@@ -153,25 +129,28 @@
     </div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
-
     <script>
         let currentS = 1;
         let player;
-        const words = ["حبيبتي", "بعد قلبي", "زوجتي المستقبلية", "قمري", "جميلتي", "دلوعتي", "روحي", "شطورتي", "Widad", "Hashem", "سنة كاملة"];
+        const words = ["حبيبتي", "بعد قلبي", "زوجتي", "قمري", "جميلتي", "دلوعتي", "روحي", "شطورتي", "Widad", "Hashem", "سنة كاملة"];
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
+            player = new YT.Player('player', {
                 height: '0', width: '0',
-                videoId: 'Z6DAt09V9u8', 
-                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Z6DAt09V9u8' },
-                events: { 'onReady': () => console.log("Music Ready") }
+                videoId: 'Z6DAt09V9u8', // Michael Jackson - The Lady in My Life
+                playerVars: { 'autoplay': 0, 'controls': 0, 'showinfo': 0, 'rel': 0, 'enablejsapi': 1, 'loop': 1, 'playlist': 'Z6DAt09V9u8' },
+                events: { 'onReady': onPlayerReady }
             });
         }
 
+        function onPlayerReady(event) {
+            console.log("Music Engine Ready");
+        }
+
         function startApp() {
-            if(player && player.playVideo) {
-                player.setVolume(40);
+            if (player && player.playVideo) {
                 player.playVideo();
+                player.setVolume(50);
             }
             document.getElementById('music-ui').style.visibility = "visible";
             go(2);
@@ -179,13 +158,8 @@
 
         function toggleMusic() {
             const state = player.getPlayerState();
-            if(state === 1) { 
-                player.pauseVideo();
-                document.getElementById('music-text').innerText = "PAUSED";
-            } else {
-                player.playVideo();
-                document.getElementById('music-text').innerText = "PLAYING...";
-            }
+            if (state === 1) { player.pauseVideo(); document.getElementById('music-text').innerText = "PAUSED"; }
+            else { player.playVideo(); document.getElementById('music-text').innerText = "PLAYING..."; }
         }
 
         function go(n) {
@@ -213,19 +187,12 @@
                 el.className = 'word-bubble'; el.innerText = w;
                 box.appendChild(el);
                 const b = {
-                    el: el,
-                    x: Math.random() * (box.clientWidth - 100),
+                    el: el, x: Math.random() * (box.clientWidth - 100),
                     y: Math.random() * (box.clientHeight - 50),
-                    vx: (Math.random() - 0.5) * 4,
-                    vy: (Math.random() - 0.5) * 4,
-                    w: el.offsetWidth,
-                    h: el.offsetHeight
+                    vx: (Math.random() - 0.5) * 5, vy: (Math.random() - 0.5) * 5,
+                    w: el.offsetWidth, h: el.offsetHeight
                 };
-                el.onclick = () => {
-                    el.style.transform = "scale(0)"; b.vx = 0; b.vy = 0;
-                    count++;
-                    if(count === words.length) document.getElementById('game-btn').style.display = "block";
-                };
+                el.onclick = () => { el.style.transform = "scale(0)"; b.vx = 0; b.vy = 0; count++; if(count === words.length) document.getElementById('game-btn').style.display = "block"; };
                 bubbles.push(b);
             });
             updatePhysics();
@@ -249,11 +216,10 @@
         function initStars() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             stars = [];
-            for(let i=0; i<100; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5});
+            for(let i=0; i<120; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5});
         }
         function drawStars() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "#d4af37";
+            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "#d4af37";
             stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill(); });
             requestAnimationFrame(drawStars);
         }
@@ -262,14 +228,13 @@
         window.addEventListener('mousedown', e => {
             if(currentS !== 5) return;
             const k = document.createElement('div');
-            k.className = "garden-mark";
-            k.innerHTML = Math.random() > 0.5 ? "💋" : "❤️";
+            k.className = "garden-mark"; k.innerHTML = Math.random() > 0.5 ? "💋" : "❤️";
+            k.style.position = "absolute"; k.style.fontSize = "2.5rem"; k.style.pointerEvents = "none";
             k.style.left = (e.clientX - 20) + "px"; k.style.top = (e.clientY - 20) + "px";
+            k.style.animation = "floatOut 2s forwards";
             document.body.appendChild(k);
             setTimeout(() => k.remove(), 2000);
         });
-
-        window.onresize = initStars;
     </script>
 </body>
 </html>

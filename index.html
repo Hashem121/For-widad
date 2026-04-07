@@ -54,7 +54,6 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
         }
 
-        /* UPDATED: Bigger and more prominent hint */
         .click-hint { 
             font-size: 1.2rem; 
             color: var(--pink); 
@@ -77,9 +76,8 @@
             overflow-y: auto;
         }
         .ow-card.active { border-color: var(--pink); background: rgba(248, 200, 220, 0.1); }
-        .ow-card.active .ow-content { max-height: 300px; opacity: 1; padding-bottom: 30px; margin-top: 5px; }
+        .ow-card.active .ow-content { max-height: 400px; opacity: 1; padding-bottom: 30px; margin-top: 5px; }
 
-        /* Final Page Decor */
         .flower-bed { font-size: 2.5rem; margin: 15px 0; display: flex; gap: 15px; justify-content: center; }
         .heart-vow { font-size: 3.5rem; color: var(--gold); margin: 10px 0; animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
@@ -119,37 +117,58 @@
             <div class="ow-container">
                 
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you want to give up</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>Open when you miss me</span><span>♡</span></div>
                     <div class="ow-content">
-                        يا بعد هلي، لا تقولين هالكلام ولا تخلين هالافكار تأثر عليج. تذكري انج اقوى وأشجع انسانة عرفتها بحياتي، واني آمن فيج وبقدراتج اكثر من اي شي ثاني. انتي أذكى بنت بالدنيا كلها، وماكو شي يصعب عليج وانتي عندج هالعزيمة. انا دايم يمج وبظهرج، واذا تعبتي انا اللي بشيلج. كملي طريجج يا روحي لاني واثق انج بتوصلين للي تبينه وبفتخر فيج جدام الكل. انتي مو بروحه، هاشم معاج خطوة بخطوة.
+                        يا بعد هلي، إذا ميتة من الوله عليّ، تذكري إني ميت فيج أضعاف. غمضي عيونج وتخيلي إني ماسك إيدج وقاعد أسولف معاج وأضحكج مثل ما نسوي دايم. أنا قريب منج حيل، بقلبي وبفكري وبكل ذرة فيني. الوله هذا هو اللي يخلي لقانا أحلى، وصبري يا روحي مابقى شي ونكون مع بعض دايم ولا نفترق ثانية وحدة. أحبج حيل.
+                    </div>
+                </div>
+
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you need me</span><span>♡</span></div>
+                    <div class="ow-content">
+                        أنا هني. أنا سندج، أنا ظهرج، وأنا اللي ما يمل منج أبد. لو تحسين إنج محتاجة كتف تميلين عليه أو قلب يسمعج بدون ملل، هاشم موجود. لا تترددين تطلبيني بأي وقت، لأني أصلاً ما أعيش إلا عشان أكون لج وبجانبج. انتي بس قولي يا هاشم وبتلقيني عندج قبل لا تخلصين كلمتج.
+                    </div>
+                </div>
+
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you can't sleep</span><span>♡</span></div>
+                    <div class="ow-content">
+                        يا عمري، إذا طار النوم من عيونج، فكري فيني وأنا قاعد أتأمل ملامحج وانتي نايمة بهدوء مثل الملاك. تخيلي إني قاعد أمصح على راسج وأقرأ لج أذكار وأسمي عليج لين تغفين بحضني. ريحي بالج، هاشم يحرس أحلامج، وحبي لج هو الدفا اللي يخليج تنامين وانتي مرتاحة. نامي يا قلبي، بكرة يوم جديد وحلو نعيشه مع بعض.
+                    </div>
+                </div>
+
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you're overthinking</span><span>♡</span></div>
+                    <div class="ow-content">
+                        وداد، وقفي هالأفكار الحين. لا تخلين عقلج ياخذج لأماكن تخوفج. الحقيقة الوحيدة اللي لازم تعرفينها هي إني أعشقج وإني معاج وماراح أهدج أبد. كل هالأفكار مجرد غيوم وبتمشي، بس حبي لج هو الشمس الثابتة. تعوذي من إبليس وذكري ربج، وتذكري إن هاشم اختارج انتي من بين هالكون كله عشان تكونين شريكة دربه.
+                    </div>
+                </div>
+
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you had a bad day</span><span>♡</span></div>
+                    <div class="ow-content">
+                        يا روح هاشم، قطي كل تعب اليوم ورا ظهرج الحين. مابي هالكدر يمر بقلبج الطيب. تذكري إن اليوم خلص، وبكرة بيكون أحسن بوجودنا مع بعض. أنا مستعد أسوي أي شي عشان أرسم الضحكة على وجهج الحين. تعالي بحضني (حتى لو بخيالج) وخليني أنسيج كل ضيق مريتي فيه. انتي غالية عليّ وما أهون عليج تزعلين.
                     </div>
                 </div>
 
                 <div class="ow-card" onclick="toggleOW(this)">
                     <div class="ow-trigger"><span>Thinking about our future</span><span>♡</span></div>
                     <div class="ow-content">
-                        لما تفكرين بمستقبلنا، ابيج تبتسمين وتعرفين ان هاشم قاعد يخطط لكل لحظة حلوة نعيشها مع بعض. اشوفج وانتي زوجتي وحلالي، واشوف بيتنا اللي بيجمعنا وضحكتنا اللي بتملي المكان. كل شي اسويه الحين هو عشانج وعشان هاللحظة اللي نكون فيها مع بعض دايم. مستقبلي ماله طعم ولا ملامح بدونج، انتي البداية والنهاية لكل شي حلو في حياتي، والوعد قريب يا وداد قلبي.
+                        يا روحي لما تفكرين بمستقبلنا، ابيج تتخيلين اجمل شي ممكن يصير، لان هذا اللي انا قاعد ارسمه لج. اشوف بيتنا، واشوف ضحكتنا، واشوفج وانتي زوجتي وحلالي وام عيالي. كل تعب الحين هو عشان ذيج اللحظة اللي نكون فيها تحت سقف واحد. مستقبلي ماله طعم بدونج، وانتي الاساس لكل شي حلو بحياتي.
                     </div>
                 </div>
 
                 <div class="ow-card" onclick="toggleOW(this)">
                     <div class="ow-trigger"><span>Open when you feel alone</span><span>♡</span></div>
                     <div class="ow-content">
-                        يا عمري، مستحيل تكونين وحيدة وانتي بقلبي. حتى لو انا بعيد عن عينج، روحي تحوم حواليج دايم. غمضي عيونج الحين وبتحسين فيني يمج، ماسك ايدج حيل وقاعد اطالعج بكل حب. انا لج السند والاهل والرفيج، ولو ضاقت فيج الدنيا تذكري ان قلبي هو بيتج اللي يرحب فيج دايم. هاشم ما راح يخليج تشعرين بالوحدة ابد، لاني معاج بروح وبكل تفكيري بكل ثانية تمر.
+                        وداد، مستحيل تكونين بروحج وهاشم موجود. روحي معاج بكل ثانية، وقلبي يدق باسمج حتى واحنا بعيد. لما تحسين بالوحدة، تذكري ان في واحد ميت فيج ويحاتيج ويدعي لج بكل صلاة. انا يمج وبظهرج دايم، وما راح اخلي اي وحشة تلمس قلبج.
                     </div>
                 </div>
 
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you need reassurance</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>Open when you want reassurance</span><span>♡</span></div>
                     <div class="ow-content">
-                        يا روح هاشم، ريحي بالج ولا تخلين الشك يدخل قلبج لحظة وحدة. انا احبج وما ابي غيرج من الدنيا كلها. انتي ملكتي، وانتي الوحيدة اللي لها الحق بقلبي وعمري. حبي لج ثابت وماراح يتغير لو شنو صار، والايام بتثبت لج ان هاشم ما يشوف غيرج من بين كل بنات العالم. انتي الوداد وانتي الروح، ووعدي لج بيبقى دايم: انا لج وببقى لج لآخر يوم بعمري.
-                    </div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you're sad</span><span>♡</span></div>
-                    <div class="ow-content">
-                        يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد. اخذي نفس عميق وغمضي عيونج، وتخيلي اني ماسك ايدج حيل وقاعد اقولج ان كل شي بيمر وبنضحك عليه مع بعض. ضحكتج هي اللي تنور دنيتي، فلا تحرميني منها يا غلاتي.
+                        يا بعد عمري، لو سألتي قلبي الف مرة بقول لج نفس الكلام: احبج وما ابي غيرج. لا تشكين بحبي ولا بلحظة، لانج صرتي جزء من دمي. انتي الوحيدة اللي ملكتي قلبي، ومستحيل اي احد ياخذ مكانج. انا لج وببقى لج، وكلمتي وحدة وماراح اتغير عليج لو شنو صار.
                     </div>
                 </div>
 
@@ -193,7 +212,7 @@
         function startApp() {
             if (player && player.playVideo) { 
                 player.playVideo(); 
-                player.setVolume(100); // Music volume up to max as requested
+                player.setVolume(100); 
             }
             document.getElementById('music-ui').style.visibility = "visible";
             go(2);

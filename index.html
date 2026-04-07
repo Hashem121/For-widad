@@ -15,19 +15,12 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
-        
-        /* Fixed Body Settings */
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            font-family: 'Montserrat', sans-serif; 
-            overflow: hidden; 
-            height: 100vh; 
-            width: 100vw;
-        }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; overflow: hidden; height: 100vh; width: 100vw; }
 
         #canvas-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6; pointer-events: none; }
         .app-container { position: relative; z-index: 10; width: 100%; height: 100%; }
+
+        #youtube-player { position: absolute; top: -9999px; left: -9999px; visibility: hidden; pointer-events: none; }
 
         .screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -41,59 +34,50 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 7vw, 3.5rem); color: var(--gold); margin-bottom: 10px; }
         .date-badge { font-weight: 200; letter-spacing: 4px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid var(--gold); padding-bottom: 5px; font-size: 0.8rem; }
         
-        /* Buttons */
+        /* Volume Prompt Styling */
+        .volume-prompt {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInOut 2s infinite ease-in-out;
+        }
+        .volume-prompt span {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+        .speaker-icon {
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.4; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-5px); }
+        }
+
         .btn-gold {
             background: none; border: 1px solid var(--gold); color: var(--gold);
             padding: 15px 40px; font-size: 0.8rem; letter-spacing: 2px;
             text-transform: uppercase; cursor: pointer; transition: 0.3s;
-            margin-top: 20px; border-radius: 2px; z-index: 100;
+            margin-top: 10px; border-radius: 2px; z-index: 100;
         }
         .btn-gold:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
 
-        /* Quiz */
         .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; width: 100%; max-width: 400px; }
         .ans-btn { background: var(--glass); border: 1px solid rgba(212,175,55,0.2); color: var(--text); padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-family: 'Amiri', serif; }
 
-        /* Bouncing Game */
-        #game-box { 
-            width: 90%; max-width: 500px; height: 400px; 
-            background: rgba(0,0,0,0.4); border-radius: 20px; 
-            border: 1px solid rgba(212,175,55,0.2); 
-            position: relative; overflow: hidden; margin: 20px 0;
-        }
-        .word-bubble {
-            position: absolute; padding: 10px 18px; 
-            background: var(--gold); color: #000; 
-            border-radius: 50px; font-family: 'Amiri', serif; 
-            font-weight: bold; font-size: 1.1rem; cursor: pointer; 
-            white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            user-select: none;
-        }
+        #game-box { width: 90%; max-width: 500px; height: 400px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px solid rgba(212,175,55,0.2); position: relative; overflow: hidden; margin: 20px 0; }
+        .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; font-size: 1.1rem; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3); user-select: none; }
 
-        /* The Letter - FIXED SCROLLING */
-        .letter-scroll {
-            background: #fffdf9; color: #1a1a1a; padding: 40px 25px;
-            border-radius: 4px; max-width: 600px; max-height: 60vh; 
-            overflow-y: auto; font-family: 'Amiri', serif; 
-            font-size: clamp(1.1rem, 4.5vw, 1.6rem); line-height: 2.2;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: justify;
-            border-right: 6px solid var(--gold);
-            -webkit-overflow-scrolling: touch; /* Smooth mobile scroll */
-        }
+        .letter-scroll { background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; max-width: 600px; max-height: 60vh; overflow-y: auto; font-family: 'Amiri', serif; font-size: clamp(1.1rem, 4.5vw, 1.6rem); line-height: 2.2; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: justify; border-right: 6px solid var(--gold); -webkit-overflow-scrolling: touch; }
 
-        /* Garden Marks */
         .garden-mark { position: absolute; font-size: 2.5rem; pointer-events: none; animation: floatOut 2s forwards; z-index: 999; }
         @keyframes floatOut { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(2) translateY(-150px); } }
 
-        /* Music Bar */
-        #music-ui {
-            position: fixed; bottom: 20px; left: 20px; 
-            display: flex; align-items: center; gap: 10px;
-            background: rgba(0,0,0,0.6); padding: 8px 15px;
-            border-radius: 30px; border: 1px solid var(--gold);
-            z-index: 200; font-size: 0.7rem; color: var(--gold);
-            cursor: pointer; visibility: hidden;
-        }
+        #music-ui { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.7); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--gold); z-index: 200; font-size: 0.7rem; color: var(--gold); cursor: pointer; visibility: hidden; }
         .wave { width: 3px; height: 12px; background: var(--gold); animation: wave 1s infinite alternate; }
         @keyframes wave { from { height: 4px; } to { height: 14px; } }
 
@@ -105,18 +89,20 @@
 <body>
 
     <canvas id="canvas-stars"></canvas>
-    
-    <audio id="bg-music" loop>
-        <source src="ladyinmylife.mp3" type="audio/mpeg">
-    </audio>
+    <div id="youtube-player"></div>
 
     <div class="app-container">
-        
         <section class="screen active" id="s1">
             <div class="date-badge">APRIL 8, 2026</div>
             <h1>Widad & Hashem</h1>
-            <p>One year ago, my world changed forever.</p>
-            <button class="btn-gold" onclick="startApp()">Start Our Journey</button>
+            <p style="margin-bottom: 40px;">One year ago, my world changed forever.</p>
+            
+            <div class="volume-prompt">
+                <div class="speaker-icon">🔊</div>
+                <span>Please turn your volume up</span>
+            </div>
+            
+            <button class="btn-gold" id="start-btn" onclick="startApp()">Start Our Journey</button>
         </section>
 
         <section class="screen" id="s2">
@@ -159,17 +145,48 @@
         <div class="wave" style="animation-delay: 0s"></div>
         <div class="wave" style="animation-delay: 0.2s"></div>
         <div class="wave" style="animation-delay: 0.4s"></div>
-        <span id="music-text">PLAYING: LADY IN MY LIFE</span>
+        <span id="music-text">PLAYING: THE LADY IN MY LIFE</span>
     </div>
 
     <div class="nav-dots">
         <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
         let currentS = 1;
-        const audio = document.getElementById('bg-music');
+        let player;
         const words = ["حبيبتي", "بعد قلبي", "زوجتي المستقبلية", "قمري", "جميلتي", "دلوعتي", "روحي", "شطورتي", "Widad", "Hashem", "سنة كاملة"];
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0', width: '0',
+                videoId: 'Z6DAt09V9u8', 
+                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Z6DAt09V9u8' },
+                events: { 'onReady': () => console.log("Music Ready") }
+            });
+        }
+
+        function startApp() {
+            if(player && player.playVideo) {
+                player.setVolume(40);
+                player.playVideo();
+            }
+            document.getElementById('music-ui').style.visibility = "visible";
+            go(2);
+        }
+
+        function toggleMusic() {
+            const state = player.getPlayerState();
+            if(state === 1) { 
+                player.pauseVideo();
+                document.getElementById('music-text').innerText = "PAUSED";
+            } else {
+                player.playVideo();
+                document.getElementById('music-text').innerText = "PLAYING...";
+            }
+        }
 
         function go(n) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -179,30 +196,13 @@
             if(n === 3) initGame();
         }
 
-        function startApp() {
-            audio.volume = 0.4;
-            audio.play().catch(() => console.log("Music click required"));
-            document.getElementById('music-ui').style.visibility = "visible";
-            go(2);
-        }
-
-        function toggleMusic() {
-            if(audio.paused) { audio.play(); document.getElementById('music-text').innerText = "PLAYING..."; }
-            else { audio.pause(); document.getElementById('music-text').innerText = "PAUSED"; }
-        }
-
         function checkQuiz(btn) {
-            document.querySelectorAll('.ans-btn').forEach(b => {
-                b.style.background = "none";
-                b.style.color = "var(--text)";
-            });
-            btn.style.background = "var(--gold)";
-            btn.style.color = "#000";
+            document.querySelectorAll('.ans-btn').forEach(b => { b.style.background = "none"; b.style.color = "var(--text)"; });
+            btn.style.background = "var(--gold)"; btn.style.color = "#000";
             document.querySelector('#s2 h2').innerText = "أكيد هاشم! ❤️";
             document.getElementById('quiz-next').style.display = "block";
         }
 
-        // --- Bouncing Game ---
         let bubbles = [];
         function initGame() {
             const box = document.getElementById('game-box');
@@ -212,8 +212,6 @@
                 const el = document.createElement('div');
                 el.className = 'word-bubble'; el.innerText = w;
                 box.appendChild(el);
-                
-                // Get sizes after adding to DOM
                 const b = {
                     el: el,
                     x: Math.random() * (box.clientWidth - 100),
@@ -224,8 +222,7 @@
                     h: el.offsetHeight
                 };
                 el.onclick = () => {
-                    el.style.transform = "scale(0)";
-                    b.vx = 0; b.vy = 0;
+                    el.style.transform = "scale(0)"; b.vx = 0; b.vy = 0;
                     count++;
                     if(count === words.length) document.getElementById('game-btn').style.display = "block";
                 };
@@ -241,13 +238,11 @@
                 b.x += b.vx; b.y += b.vy;
                 if(b.x <= 0 || b.x + b.w >= box.clientWidth) b.vx *= -1;
                 if(b.y <= 0 || b.y + b.h >= box.clientHeight) b.vy *= -1;
-                b.el.style.left = b.x + "px";
-                b.el.style.top = b.y + "px";
+                b.el.style.left = b.x + "px"; b.el.style.top = b.y + "px";
             });
             requestAnimationFrame(updatePhysics);
         }
 
-        // --- BG Animation & Kisses ---
         const canvas = document.getElementById('canvas-stars');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -269,8 +264,7 @@
             const k = document.createElement('div');
             k.className = "garden-mark";
             k.innerHTML = Math.random() > 0.5 ? "💋" : "❤️";
-            k.style.left = (e.clientX - 20) + "px";
-            k.style.top = (e.clientY - 20) + "px";
+            k.style.left = (e.clientX - 20) + "px"; k.style.top = (e.clientY - 20) + "px";
             document.body.appendChild(k);
             setTimeout(() => k.remove(), 2000);
         });

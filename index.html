@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Widad & Hashem: One Year</title>
+    <title>Widad & Hashem: Forever</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,700;1,900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -35,37 +35,44 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.5rem); color: var(--gold); margin-bottom: 10px; }
         .date-badge { font-weight: 200; letter-spacing: 4px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid var(--gold); padding-bottom: 5px; font-size: 0.8rem; }
         
-        .volume-prompt { margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; animation: pulse 2s infinite; }
-        .volume-prompt span { font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
         .btn-gold {
             background: none; border: 1px solid var(--gold); color: var(--gold);
             padding: 15px 40px; font-size: 0.8rem; letter-spacing: 2px;
             text-transform: uppercase; cursor: pointer; transition: 0.3s;
-            margin-top: 15px; border-radius: 2px;
+            margin-top: 20px; border-radius: 2px;
         }
         .btn-gold:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
 
         /* Game Box */
         #game-box { width: 90%; max-width: 500px; height: 350px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px solid rgba(212,175,55,0.2); position: relative; overflow: hidden; margin: 20px 0; }
-        .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; cursor: pointer; white-space: nowrap; }
 
-        /* The Letter */
-        .letter-scroll { background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; max-width: 600px; max-height: 50vh; overflow-y: auto; font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 2.2; text-align: justify; border-right: 6px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        /* Main Letter */
+        .letter-scroll { background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; max-width: 600px; max-height: 50vh; overflow-y: auto; font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 2.2; text-align: justify; border-right: 6px solid var(--gold); }
 
-        /* Open When Section */
-        .ow-container { width: 100%; max-width: 550px; display: flex; flex-direction: column; gap: 15px; margin-top: 10px; overflow-y: auto; max-height: 70vh; padding-right: 10px; }
-        .ow-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(248, 200, 220, 0.1); border-radius: 15px; overflow: hidden; cursor: pointer; transition: 0.4s ease; position: relative; }
-        .ow-trigger { padding: 20px; display: flex; justify-content: space-between; align-items: center; color: var(--pink); font-size: 0.95rem; font-weight: 600; font-family: 'Amiri', serif; }
-        .ow-content { max-height: 0; opacity: 0; padding: 0 25px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); font-family: 'Amiri', serif; font-size: 1.2rem; line-height: 1.8; color: #e0d5c1; text-align: right; }
+        /* Open When Tooltip */
+        .click-hint { font-size: 0.7rem; color: var(--pink); margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; animation: glow 2s infinite; }
+        @keyframes glow { 0%, 100% { opacity: 0.4; text-shadow: 0 0 5px var(--pink); } 50% { opacity: 1; text-shadow: 0 0 15px var(--pink); } }
+
+        /* Open When Cards */
+        .ow-container { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; max-height: 65vh; padding-right: 10px; }
+        .ow-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(248, 200, 220, 0.1); border-radius: 15px; overflow: hidden; cursor: pointer; transition: 0.4s; }
+        .ow-trigger { padding: 20px; display: flex; justify-content: space-between; color: var(--pink); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+        .ow-content { 
+            max-height: 0; opacity: 0; padding: 0 25px; transition: all 0.5s ease; 
+            font-family: 'Amiri', serif; font-size: 1.2rem; line-height: 1.9; color: #e0d5c1; text-align: right; 
+            overflow-y: auto; /* Makes the inside scrollable */
+        }
         .ow-card.active { border-color: var(--pink); background: rgba(248, 200, 220, 0.08); }
-        .ow-card.active .ow-content { max-height: 1000px; opacity: 1; padding-bottom: 30px; }
+        .ow-card.active .ow-content { max-height: 250px; opacity: 1; padding-bottom: 30px; margin-bottom: 10px; }
+
+        /* Final Screen Decor */
+        .final-heart { font-size: 4rem; color: var(--gold); margin: 20px 0; animation: pulseHeart 1.5s infinite; }
+        @keyframes pulseHeart { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
         #music-ui { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.8); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--gold); z-index: 200; font-size: 0.6rem; color: var(--gold); cursor: pointer; visibility: hidden; }
-        .nav-dots { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; }
-        .dot { width: 6px; height: 6px; background: rgba(212,175,55,0.2); border-radius: 50%; }
-        .dot.active { background: var(--gold); height: 20px; border-radius: 10px; }
+        .wave { width: 3px; height: 12px; background: var(--gold); animation: wave 1s infinite alternate; }
+        @keyframes wave { from { height: 4px; } to { height: 14px; } }
     </style>
 </head>
 <body>
@@ -77,82 +84,73 @@
         <section class="screen active" id="s1">
             <div class="date-badge">APRIL 8, 2026</div>
             <h1>Widad & Hashem</h1>
-            <p>One year of us. Forever to go.</p>
-            <div class="volume-prompt" style="margin-top:30px;">
-                <span style="font-size: 1.5rem;">🔊</span>
-                <span>Please Turn Volume Up</span>
-            </div>
-            <button class="btn-gold" onclick="startApp()">Open My Heart</button>
+            <p style="letter-spacing: 3px; font-weight: 200;">365 Days of Love</p>
+            <button class="btn-gold" onclick="startApp()">Enter Our World</button>
         </section>
 
         <section class="screen" id="s2">
             <div id="game-box"></div>
-            <p style="font-size: 0.7rem; color: var(--gold);">Catch all the words to unlock the letter...</p>
-            <button id="game-btn" class="btn-gold" style="display:none;" onclick="go(3)">See The Surprise</button>
+            <p style="font-size: 0.7rem; color: var(--gold);">Catch our favorite words to unlock my letter...</p>
+            <button id="game-btn" class="btn-gold" style="display:none;" onclick="go(3)">Open The Letter</button>
         </section>
 
         <section class="screen" id="s3">
             <div class="letter-scroll">
                 يا بعد عمري وكل طوايف هلي ودنيتي كلها يا وداد اليوم كملنا سنة مع بعض واليوم عيدنا صار عيدين بوجودج يا اغلى واجمل نعمة ربي جاد علي فيها والله يا روحي اني ميت فيج واعشق كل تفصيل فيج يمكن حتى انتي ما تلاحظينه بنفسج احب ضحكتج اللي ترد الروح لقلبي واحب عيونج اللي اشوف فيها مستقبلي كله وكل يوم يمر وانتي معاي احس اني ملكت الدنيا وما فيها والله يا قلبي ماكو شي بهالدنيا يونسني كثر ما حنا مع بعض بكل شي نسويه اعشق ابسط اللحظات اللي تجمعنا لما نلعب روبلوكس ونضحك ونتهاوش مثل اليهال ولما نلعب اي لعبة ثانية واحس اني ملكت الكون لما نكون مع بعض ولما ناكل مع بعض بنفس الوقت ونحس بلذة الاكل لاننا نتشاركه حتى وحنا بعيد ولما تطلبين مني اكل نفس اللي تاكلينه عشان نحس اننا قاعدين على طاولة وحدة واعشق اللحظات اللي نفتح فيها الكاميرات ونسولف بالساعات واشوف ملامحج تضحك لي واتأمل وجهج اللي نور دنيتي كلها وانتي تسولفين وتضحكين معاي واحب لما اشوفج وانتي تسوين شغلج او تدرسين واكون انا السند اللي يشيل عنج كل هم وكل تعب مثل ما سويت لج الهومورك اليوم لاني ما ارضاها عليج ابد يالغالية والله يا روحي اني بأقرب وقت بكون عند باب بيتج واخطبج واخذج لعالمي الخاص عشان تكونين زوجتي وحلالي وام عيالي وبذمتي انا اللي اريح بالج كل ليلة واهتم فيج واحمي احلامج واخليج تحسين بدفا حضني وما تحتاجين احد غيري ابد انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس وماراح ارتاح لين تكونين معاي بنفس البيت واهنيج واسعدج جدام الكل يا اغلى انسانة بحياتي اعشق تراب رجلج لانج انتي اللي غيرتي حياتي وخليتيني اعرف طعم السعادة صج وماراح اهد ايدج لو شنو يصير بهالدنيا لاني السند والظهر اللي دوم يوقف معج ويحميج من كل شر ومن كل ضيق وكل عام وانتي عيدي واجمل ايامي وكل عام واحنا مع بعض وبأيدين بعض لاخر يوم بعمري احبج حيل يا روحي وقلبي وكل دنيتي وعقبال العمر كله وانتي بحضني وتحت جناحي يا ملكة قلبي وعيوني.
             </div>
-            <button class="btn-gold" style="margin-top:20px;" onclick="go(4)">Special Messages For You</button>
+            <button class="btn-gold" onclick="go(4)">Continue</button>
         </section>
 
         <section class="screen" id="s4">
-            <div class="date-badge">OPEN WHEN YOU NEED ME</div>
+            <div class="click-hint">Click on me when you need me</div>
             <div class="ow-container">
-                
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>لما تحسين انج متضايقة (Sad)</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>Open when you're sad</span><span>♡</span></div>
                     <div class="ow-content">
-                        يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد. اخذي نفس عميق وغمضي عيونج، وتخيلي اني ماسك ايدج حيل وقاعد اقولج ان كل شي بيمر وبنضحك عليه مع بعض. ضحكتج هي اللي تنور دنيتي، فلا تحرميني منها يا غلاتي.
+                        يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد. اخذي نفس عميق وغمضي عيونج، وتخيلي اني ماسك ايدج حيل وقاعد اقولج ان كل شي بيمر وبنضحك عليه مع بعض. ضحكتج هي اللي تنور دنيتي، فلا تحرميني منها يا غلاتي.. انتي مو بس حبيبتي، انتي اهلي وكل دنيتي، والحزن ما يليق لعيونج هذي اللي اشوف فيها كل مستقبلي.
                     </div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>لما تشتاقين لي (Miss me)</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>Open when you miss me</span><span>♡</span></div>
                     <div class="ow-content">
-                        والله يا وداد اني اشتاق لج اكثر مما تتصورين، بكل ثانية وبكل لحظة. المسافة مجرد ارقام، بس قلبي دايم عندج. لما تحسين بالوحدة، تذكري ان في واحد بالكويت ميت فيج وقاعد يفكر فيج الحين. تذكري سوالفنا، لعبنا، وضحكنا اللي ما يخلص. انا لج وببقى لج، وقريب بنكون مع بعض وما راح اخليج تشتاقين لي ابد لاني بكون قدام عيونج طول العمر.
+                        والله يا وداد اني اشتاق لج اكثر مما تتصورين، بكل ثانية وبكل لحظة. المسافة مجرد ارقام، بس قلبي دايم عندج. لما تحسين بالوحدة، تذكري ان في واحد بالكويت ميت فيج وقاعد يفكر فيج الحين. تذكري سوالفنا، لعبنا، وضحكنا اللي ما يخلص. انا لج وببقى لج، وقريب بنكون مع بعض وما راح اخليج تشتاقين لي ابد لاني بكون قدام عيونج طول العمر. انتي النفس اللي اتنفسه، والوقت بدونج ماله طعم، بس صبري يا روحي الوعد قريب وبنعوض كل لحظة شوق بلمة ايدين ما تفترق ابد.
                     </div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>لما تفكرين وايد (Overthinking)</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>Open when you're overthinking</span><span>♡</span></div>
                     <div class="ow-content">
-                        يا عمري هدي بالج ولا تخلين الافكار تلعب بقلبج. كل اللي ابيج تعرفينه ان حبي لج صادق وثابت مثل الجبل. لا تفكرين ب باجر ولا تحاتين شي، لاني انا معاج وما راح اهدج لو شنو يصير. انتي ملكتي ودنيتي كلها، وكل شي قاعد اسويه هو عشانج وعشان مستقبلنا مع بعض. ريحي بالج يا بعد هلي، هاشم يحبج اكثر من روحه.
+                        يا عمري هدي بالج ولا تخلين الافكار تلعب بقلبج. كل اللي ابيج تعرفينه ان حبي لج صادق وثابت مثل الجبل. لا تفكرين ب باجر ولا تحاتين شي، لاني انا معاج وما راح اهدج لو شنو يصير. انتي ملكتي ودنيتي كلها، وكل شي قاعد اسويه هو عشانج وعشان مستقبلنا مع بعض. ريحي بالج يا بعد هلي، هاشم يحبج اكثر من روحه وما يرضى ان هالافكار تتعبج. انتي اختيار قلبي الاول والاخير، ومكانج بقلبي محفور لآخر يوم بعمري.
                     </div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>لما يومج يكون تعيس (Bad Day)</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>Open when you had a bad day</span><span>♡</span></div>
                     <div class="ow-content">
-                        قطي كل تعب اليوم ورا ظهرج وتعالي بحضني (حتى لو بالفون). ادري ساعات الاشياء ما تمشي مثل ما نبي، بس هذا كله ما يهم دامنا مع بعض. انتي سويتي اللي عليج وزيادة، والحين وقت انج ترتاحين وتعرفين ان في قلب يحبج وينطرج ويدعي لج بكل صلاة. باجر يوم جديد واحلى، لاني بكون فيه معاج يا اغلى ناسي.
+                        قطي كل تعب اليوم ورا ظهرج وتعالي بحضني. ادري ساعات الاشياء ما تمشي مثل ما نبي، بس هذا كله ما يهم دامنا مع بعض. انتي سويتي اللي عليج وزيادة، والحين وقت انج ترتاحين وتعرفين ان في قلب يحبج وينطرج ويدعي لج بكل صلاة. باجر يوم جديد واحلى، لاني بكون فيه معاج يا اغلى ناسي. لا تخلين موقف او كلمة تضيق خلقج، انتي اكبر من كل شي، وانتي الغالية اللي ما تهون علي ابد.
                     </div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>لما تحسين بضياع او تبين تستسلمين</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>Open when you want to give up</span><span>♡</span></div>
                     <div class="ow-content">
-                        تذكري ليش بدينا، وتذكري شكثر تعبنا عشان نوصل هني. انتي مو بس حبيبتي، انتي طموحي وحلمي. لا تخلين اي عائق يوقف بطريقج، وان تعبتي، انا ظهرج وسندج اللي يشيلج. لا تستسلمين ابد لاني اشوف فيج القوة اللي ما شفتها بغيرج. كملي يا روحي وانا معاج خطوة ب خطوة، ايد ب ايد، لين نوصل للي نبيه.
+                        تذكري ليش بدينا، وتذكري شكثر تعبنا عشان نوصل هني. انتي مو بس حبيبتي، انتي طموحي وحلمي. لا تخلين اي عائق يوقف بطريقج، وان تعبتي، انا ظهرج وسندج اللي يشيلج. لا تستسلمين ابد لاني اشوف فيج القوة اللي ما شفتها بغيرج. كملي يا روحي وانا معاج خطوة ب خطوة، ايد ب ايد، لين نوصل للي نبيه. تذكري اني افتخر فيج وبكل شي تسوينه، وان تعثرتي انا اللي بمسك ايدج واقومج من جديد.
                     </div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>لما تبين تتذكرين شكثر احبج</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>A reminder of my love</span><span>♡</span></div>
                     <div class="ow-content">
-                        لو بكتب من اليوم لسنين قدام ما راح اخلص وصف حبي لج. احبج حب ما ينتهي، احبج بكل حالاتج، وانتي تضحكين، وانتي معصبة، وانتي تدرسين، وانتي نايمة. انتي صرتي جزء من دمي، وما اتخيل حياتي بدونج ثانية وحدة. الله لا يحرمني من وجودج يا اجمل نعمة جاد ربي علي فيها. انتي الوداد، وانتي الروح، وانتي كل دنيتي يا وداد قلبي.
+                        لو بكتب من اليوم لسنين قدام ما راح اخلص وصف حبي لج. احبج حب ما ينتهي، احبج بكل حالاتج، وانتي تضحكين، وانتي معصبة، وانتي تدرسين، وانتي نايمة. انتي صرتي جزء من دمي، وما اتخيل حياتي بدونج ثانية وحدة. الله لا يحرمني من وجودج يا اجمل نعمة جاد ربي علي فيها. انتي الوداد، وانتي الروح، وانتي كل دنيتي. حبج هو اللي خلاني اعرف معنى السعادة الحقيقية، واعدج اني بكون لج الزوج والاب والاخ والصديق طول العمر.
                     </div>
                 </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>لما ما ييج نوم (Can't Sleep)</span><span>♡</span></div>
-                    <div class="ow-content">
-                        ريحي ملامحج يا بعد روحي وغمضي عيونج. تخيلي اني يمج الحين، ماسك ايدج وقاعد امسح على راسج واقرا عليج. انا حارس احلامج، وما راح اخلي اي كابوس يقرب منج. نامي وانتي متطمنة ان في واحد يحبج ومستعد يسوي المستحيل بس عشان يشوفج مستانسة. تصبحين على حب، يا اجمل حلم عشته بحياتي.
-                    </div>
-                </div>
-
             </div>
-            <button class="btn-gold" style="margin-top:20px;" onclick="go(1)">Back To Start</button>
+            <button class="btn-gold" onclick="go(5)">The Final Surprise</button>
+        </section>
+
+        <section class="screen" id="s5">
+            <div class="final-heart">❤️</div>
+            <h1>Forever Starts Today</h1>
+            <p style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--gold);">Widad & Hashem</p>
+            <p style="margin-top: 20px; font-style: italic; opacity: 0.8;">One year down. A lifetime to go.</p>
+            <p style="margin-top: 10px; font-family: 'Amiri', serif;">أحبج حيل يا أغلى من روحي</p>
+            <button class="btn-gold" onclick="go(1)">See Our Journey Again</button>
         </section>
     </div>
 
@@ -171,15 +169,12 @@
                 height: '0', width: '0',
                 videoId: 'Z6DAt09V9u8', 
                 playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Z6DAt09V9u8', 'controls': 0 },
-                events: { 'onReady': () => console.log("Audio Engine Active") }
+                events: { 'onReady': () => console.log("Music Ready") }
             });
         }
 
         function startApp() {
-            if (player && player.playVideo) {
-                player.playVideo();
-                player.setVolume(70); // Audible volume
-            }
+            if (player && player.playVideo) { player.playVideo(); player.setVolume(70); }
             document.getElementById('music-ui').style.visibility = "visible";
             go(2);
         }
@@ -215,8 +210,7 @@
                 const b = {
                     el: el, x: Math.random() * (box.clientWidth - 100),
                     y: Math.random() * (box.clientHeight - 50),
-                    vx: (Math.random() - 0.5) * 1.2, // Very slow and smooth
-                    vy: (Math.random() - 0.5) * 1.2,
+                    vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5,
                     w: el.offsetWidth, h: el.offsetHeight
                 };
                 el.onclick = () => { el.style.transform = "scale(0)"; b.vx = 0; b.vy = 0; count++; if(count === words.length) document.getElementById('game-btn').style.display = "block"; };

@@ -43,11 +43,9 @@
         }
         .btn-gold:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
 
-        /* Game Box */
         #game-box { width: 90%; max-width: 500px; height: 350px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px solid rgba(212,175,55,0.2); position: relative; overflow: hidden; margin: 20px 0; }
         .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; cursor: pointer; white-space: nowrap; }
 
-        /* Scrollable Main Letter */
         .letter-scroll { 
             background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; 
             max-width: 600px; max-height: 55vh; overflow-y: auto; 
@@ -56,27 +54,34 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
         }
 
-        /* Tooltip Hint */
-        .click-hint { font-size: 0.75rem; color: var(--pink); margin-bottom: 15px; letter-spacing: 3px; text-transform: uppercase; animation: glow 2s infinite; }
-        @keyframes glow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; text-shadow: 0 0 10px var(--pink); } }
+        /* UPDATED: Bigger and more prominent hint */
+        .click-hint { 
+            font-size: 1.2rem; 
+            color: var(--pink); 
+            margin-bottom: 20px; 
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            font-weight: 600;
+            animation: glow 2s infinite; 
+        }
+        @keyframes glow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; text-shadow: 0 0 20px var(--pink); transform: scale(1.05); } }
 
-        /* Open When Container */
         .ow-container { width: 100%; max-width: 550px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; max-height: 60vh; padding: 10px; }
         .ow-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(248, 200, 220, 0.1); border-radius: 15px; overflow: hidden; cursor: pointer; transition: 0.4s; }
         .ow-trigger { padding: 22px; display: flex; justify-content: space-between; color: var(--pink); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
         
-        /* Scrollable Message Box */
         .ow-content { 
             max-height: 0; opacity: 0; padding: 0 25px; transition: all 0.6s ease; 
             font-family: 'Amiri', serif; font-size: 1.25rem; line-height: 2; 
             color: #e0d5c1; text-align: right; 
-            overflow-y: auto; /* This makes the inside scrollable */
+            overflow-y: auto;
         }
         .ow-card.active { border-color: var(--pink); background: rgba(248, 200, 220, 0.1); }
         .ow-card.active .ow-content { max-height: 300px; opacity: 1; padding-bottom: 30px; margin-top: 5px; }
 
         /* Final Page Decor */
-        .heart-vow { font-size: 3.5rem; color: var(--gold); margin: 20px 0; animation: heartbeat 1.5s infinite; }
+        .flower-bed { font-size: 2.5rem; margin: 15px 0; display: flex; gap: 15px; justify-content: center; }
+        .heart-vow { font-size: 3.5rem; color: var(--gold); margin: 10px 0; animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
         #music-ui { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.8); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--gold); z-index: 200; font-size: 0.6rem; color: var(--gold); cursor: pointer; visibility: hidden; }
@@ -106,7 +111,7 @@
             <div class="letter-scroll">
                 يا بعد عمري وكل طوايف هلي ودنيتي كلها يا وداد اليوم كملنا سنة مع بعض واليوم عيدنا صار عيدين بوجودج يا اغلى واجمل نعمة ربي جاد علي فيها والله يا روحي اني ميت فيج واعشق كل تفصيل فيج يمكن حتى انتي ما تلاحظينه بنفسج احب ضحكتج اللي ترد الروح لقلبي واحب عيونج اللي اشوف فيها مستقبلي كله وكل يوم يمر وانتي معاي احس اني ملكت الدنيا وما فيها والله يا قلبي ماكو شي بهالدنيا يونسني كثر ما حنا مع بعض بكل شي نسويه اعشق ابسط اللحظات اللي تجمعنا لما نلعب روبلوكس ونضحك ونتهاوش مثل اليهال ولما نلعب اي لعبة ثانية واحس اني ملكت الكون لما نكون مع بعض ولما ناكل مع بعض بنفس الوقت ونحس بلذة الاكل لاننا نتشاركه حتى وحنا بعيد ولما تطلبين مني اكل نفس اللي تاكلينه عشان نحس اننا قاعدين على طاولة وحدة واعشق اللحظات اللي نفتح فيها الكاميرات ونسولف بالساعات واشوف ملامحج تضحك لي واتأمل وجهج اللي نور دنيتي كلها وانتي تسولفين وتضحكين معاي واحب لما اشوفج وانتي تسوين شغلج او تدرسين واكون انا السند اللي يشيل عنج كل هم وكل تعب مثل ما سويت لج الهومورك اليوم لاني ما ارضاها عليج ابد يالغالية والله يا روحي اني بأقرب وقت بكون عند باب بيتج واخطبج واخذج لعالمي الخاص عشان تكونين زوجتي وحلالي وام عيالي وبذمتي انا اللي اريح بالج كل ليلة واهتم فيج واحمي احلامج واخليج تحسين بدفا حضني وما تحتاجين احد غيري ابد انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس وماراح ارتاح لين تكونين معاي بنفس البيت واهنيج واسعدج جدام الكل يا اغلى انسانة بحياتي اعشق تراب رجلج لانج انتي اللي غيرتي حياتي وخليتيني اعرف طعم السعادة صج وماراح اهد ايدج لو شنو يصير بهالدنيا لاني السند والظهر اللي دوم يوقف معج ويحميج من كل شر ومن كل ضيق وكل عام وانتي عيدي واجمل ايامي وكل عام واحنا مع بعض وبأيدين بعض لاخر يوم بعمري احبج حيل يا روحي وقلبي وكل دنيتي وعقبال العمر كله وانتي بحضني وتحت جناحي يا ملكة قلبي وعيوني.
             </div>
-            <button class="btn-gold" onclick="go(4)">Next Surprise</button>
+            <button class="btn-gold" onclick="go(4)">Open Personal Archive</button>
         </section>
 
         <section class="screen" id="s4">
@@ -114,44 +119,37 @@
             <div class="ow-container">
                 
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you're sad</span><span>♡</span></div>
-                    <div class="ow-content">
-                        يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد. اخذي نفس عميق وغمضي عيونج، وتخيلي اني ماسك ايدج حيل وقاعد اقولج ان كل شي بيمر وبنضحك عليه مع بعض. ضحكتج هي اللي تنور دنيتي، فلا تحرميني منها يا غلاتي.. انتي مو بس حبيبتي، انتي اهلي وكل دنيتي، والحزن ما يليق لعيونج هذي اللي اشوف فيها كل مستقبلي. هاشم معاج وبالقرب منج دايم، ولو احتجتي ابكي، ابكي بصدري انا، لاني انا اللي يحميج من الدنيا كلها.
-                    </div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you miss me</span><span>♡</span></div>
-                    <div class="ow-content">
-                        والله يا وداد اني اشتاق لج اكثر مما تتصورين، بكل ثانية وبكل لحظة. المسافة مجرد ارقام، بس قلبي دايم عندج. لما تحسين بالوحدة، تذكري ان في واحد بالكويت ميت فيج وقاعد يفكر فيج الحين. تذكري سوالفنا، لعبنا، وضحكنا اللي ما يخلص. انا لج وببقى لج، وقريب بنكون مع بعض وما راح اخليج تشتاقين لي ابد لاني بكون قدام عيونج طول العمر. انتي النفس اللي اتنفسه، والوقت بدونج ماله طعم، بس صبري يا روحي الوعد قريب وبنعوض كل لحظة شوق بلمة ايدين ما تفترق ابد. انتي النور اللي ينور طريجي، واشتياقي لج هو اللي يخليني اشتغل واتعب عشان اليوم اللي تكونين فيه زوجتي وحلالي.
-                    </div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you're overthinking</span><span>♡</span></div>
-                    <div class="ow-content">
-                        يا عمري هدي بالج ولا تخلين الافكار تلعب بقلبج. كل اللي ابيج تعرفينه ان حبي لج صادق وثابت مثل الجبل. لا تفكرين ب باجر ولا تحاتين شي، لاني انا معاج وما راح اهدج لو شنو يصير. انتي ملكتي ودنيتي كلها، وكل شي قاعد اسويه هو عشانج وعشان مستقبلنا مع بعض. ريحي بالج يا بعد هلي، هاشم يحبج اكثر من روحه وما يرضى ان هالافكار تتعبج. انتي اختيار قلبي الاول والاخير، ومكانج بقلبي محفور لآخر يوم بعمري. لا تسمعين لوسواس عقلج، اسمعي دقات قلبي اللي تقول اسمج "وداد" مع كل نبضة.
-                    </div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you had a bad day</span><span>♡</span></div>
-                    <div class="ow-content">
-                        قطي كل تعب اليوم ورا ظهرج وتعالي بحضني. ادري ساعات الاشياء ما تمشي مثل ما نبي، بس هذا كله ما يهم دامنا مع بعض. انتي سويتي اللي عليج وزيادة، والحين وقت انج ترتاحين وتعرفين ان في قلب يحبج وينطرج ويدعي لج بكل صلاة. باجر يوم جديد واحلى، لاني بكون فيه معاج يا اغلى ناسي. لا تخلين موقف او كلمة تضيق خلقج، انتي اكبر من كل شي، وانتي الغالية اللي ما تهون علي ابد. نامي وريحي بالج، وخلي عنج كل اللي كدرج، لاني انا اللي بصالحج وبضحكج لين تنسين شصار اليوم كله.
-                    </div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
                     <div class="ow-trigger"><span>Open when you want to give up</span><span>♡</span></div>
                     <div class="ow-content">
-                        تذكري ليش بدينا، وتذكري شكثر تعبنا عشان نوصل هني. انتي مو بس حبيبتي، انتي طموحي وحلمي. لا تخلين اي عائق يوقف بطريقج، وان تعبتي، انا ظهرج وسندج اللي يشيلج. لا تستسلمين ابد لاني اشوف فيج القوة اللي ما شفتها بغيرج. كملي يا روحي وانا معاج خطوة ب خطوة، ايد ب ايد، لين نوصل للي نبيه. تذكري اني افتخر فيج وبكل شي تسوينه، وان تعثرتي انا اللي بمسك ايدج واقومج من جديد. انتي وداد الروح، والروح ما تنهزم ابد وانتي عندج هاشم اللي يحميج ويشجعج لاخر لحظة.
+                        يا بعد هلي، لا تقولين هالكلام ولا تخلين هالافكار تأثر عليج. تذكري انج اقوى وأشجع انسانة عرفتها بحياتي، واني آمن فيج وبقدراتج اكثر من اي شي ثاني. انتي أذكى بنت بالدنيا كلها، وماكو شي يصعب عليج وانتي عندج هالعزيمة. انا دايم يمج وبظهرج، واذا تعبتي انا اللي بشيلج. كملي طريجج يا روحي لاني واثق انج بتوصلين للي تبينه وبفتخر فيج جدام الكل. انتي مو بروحه، هاشم معاج خطوة بخطوة.
                     </div>
                 </div>
 
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>A reminder of my love</span><span>♡</span></div>
+                    <div class="ow-trigger"><span>Thinking about our future</span><span>♡</span></div>
                     <div class="ow-content">
-                        لو بكتب من اليوم لسنين قدام ما راح اخلص وصف حبي لج. احبج حب ما ينتهي، احبج بكل حالاتج، وانتي تضحكين، وانتي معصبة، وانتي تدرسين، وانتي نايمة. انتي صرتي جزء من دمي، وما اتخيل حياتي بدونج ثانية وحدة. الله لا يحرمني من وجودج يا اجمل نعمة جاد ربي علي فيها. انتي الوداد، وانتي الروح، وانتي كل دنيتي. حبج هو اللي خلاني اعرف معنى السعادة الحقيقية، واعدج اني بكون لج الزوج والاب والاخ والصديق طول العمر. انتي اغلى شي املكه، ومستعد اخسر العالم كله بس عشان كسبج وضحكتج هذي.
+                        لما تفكرين بمستقبلنا، ابيج تبتسمين وتعرفين ان هاشم قاعد يخطط لكل لحظة حلوة نعيشها مع بعض. اشوفج وانتي زوجتي وحلالي، واشوف بيتنا اللي بيجمعنا وضحكتنا اللي بتملي المكان. كل شي اسويه الحين هو عشانج وعشان هاللحظة اللي نكون فيها مع بعض دايم. مستقبلي ماله طعم ولا ملامح بدونج، انتي البداية والنهاية لكل شي حلو في حياتي، والوعد قريب يا وداد قلبي.
+                    </div>
+                </div>
+
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you feel alone</span><span>♡</span></div>
+                    <div class="ow-content">
+                        يا عمري، مستحيل تكونين وحيدة وانتي بقلبي. حتى لو انا بعيد عن عينج، روحي تحوم حواليج دايم. غمضي عيونج الحين وبتحسين فيني يمج، ماسك ايدج حيل وقاعد اطالعج بكل حب. انا لج السند والاهل والرفيج، ولو ضاقت فيج الدنيا تذكري ان قلبي هو بيتج اللي يرحب فيج دايم. هاشم ما راح يخليج تشعرين بالوحدة ابد، لاني معاج بروح وبكل تفكيري بكل ثانية تمر.
+                    </div>
+                </div>
+
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you need reassurance</span><span>♡</span></div>
+                    <div class="ow-content">
+                        يا روح هاشم، ريحي بالج ولا تخلين الشك يدخل قلبج لحظة وحدة. انا احبج وما ابي غيرج من الدنيا كلها. انتي ملكتي، وانتي الوحيدة اللي لها الحق بقلبي وعمري. حبي لج ثابت وماراح يتغير لو شنو صار، والايام بتثبت لج ان هاشم ما يشوف غيرج من بين كل بنات العالم. انتي الوداد وانتي الروح، ووعدي لج بيبقى دايم: انا لج وببقى لج لآخر يوم بعمري.
+                    </div>
+                </div>
+
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you're sad</span><span>♡</span></div>
+                    <div class="ow-content">
+                        يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد. اخذي نفس عميق وغمضي عيونج، وتخيلي اني ماسك ايدج حيل وقاعد اقولج ان كل شي بيمر وبنضحك عليه مع بعض. ضحكتج هي اللي تنور دنيتي، فلا تحرميني منها يا غلاتي.
                     </div>
                 </div>
 
@@ -160,12 +158,16 @@
         </section>
 
         <section class="screen" id="s5">
+            <div class="flower-bed">🌻 🌹 🌻</div>
             <div class="heart-vow">❤️</div>
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">Today, Tomorrow, Forever.</h2>
-            <p style="margin-top: 15px; font-style: italic; opacity: 0.8;">"You are the poem I never knew how to write."</p>
-            <p style="margin-top: 20px; font-family: 'Amiri', serif; font-size: 1.4rem;">وعد عليّ يا وداد، إني أصونج وأحبج لآخر يوم بعمري.</p>
-            <div style="margin-top: 30px; font-size: 0.8rem; letter-spacing: 3px; color: var(--gold);">HASHEM ❤️ WIDAD</div>
-            <button class="btn-gold" onclick="go(1)">Restart Our Journey</button>
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); font-size: 2.5rem;">I love you and will forever love you.</h2>
+            <p style="margin-top: 20px; font-family: 'Amiri', serif; font-size: 1.6rem; line-height: 1.8;">
+                يا وداد قلبي، انتي الروح اللي اتنفسها، <br>
+                وعد عليّ إني أصونج وأحبج لآخر يوم بعمري.. <br>
+                يا أحلى وردة وعباد شمس في دنيتي.
+            </p>
+            <div style="margin-top: 30px; font-size: 0.8rem; letter-spacing: 4px; color: var(--gold);">HASHEM ❤️ WIDAD</div>
+            <button class="btn-gold" onclick="go(1)">Restart Journey</button>
         </section>
     </div>
 
@@ -189,7 +191,10 @@
         }
 
         function startApp() {
-            if (player && player.playVideo) { player.playVideo(); player.setVolume(70); }
+            if (player && player.playVideo) { 
+                player.playVideo(); 
+                player.setVolume(100); // Music volume up to max as requested
+            }
             document.getElementById('music-ui').style.visibility = "visible";
             go(2);
         }

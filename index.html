@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Widad & Hashem: 1 Year</title>
+    <title>Widad & Hashem: One Year</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,700;1,900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #080809;
             --gold: #d4af37;
+            --pink: #f8c8dc;
             --text: #e0d5c1;
             --glass: rgba(255, 255, 255, 0.05);
             --transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -20,7 +21,7 @@
         #canvas-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6; pointer-events: none; }
         .app-container { position: relative; z-index: 10; width: 100%; height: 100%; }
 
-        #player-container { position: absolute; top: -999px; left: -999px; visibility: hidden; }
+        #player-container { position: absolute; top: -999px; visibility: hidden; }
 
         .screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -31,33 +32,42 @@
         }
         .screen.active { opacity: 1; visibility: visible; transform: scale(1); }
 
-        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 8vw, 3.8rem); color: var(--gold); margin-bottom: 10px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.5rem); color: var(--gold); margin-bottom: 10px; }
         .date-badge { font-weight: 200; letter-spacing: 4px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid var(--gold); padding-bottom: 5px; font-size: 0.8rem; }
         
-        .volume-prompt { margin-bottom: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; animation: fadeInOut 2s infinite; }
-        .volume-prompt span { font-size: 0.7rem; letter-spacing: 3px; color: var(--gold); }
-        @keyframes fadeInOut { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        .volume-prompt { margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; animation: pulse 2s infinite; }
+        .volume-prompt span { font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         .btn-gold {
             background: none; border: 1px solid var(--gold); color: var(--gold);
             padding: 15px 40px; font-size: 0.8rem; letter-spacing: 2px;
             text-transform: uppercase; cursor: pointer; transition: 0.3s;
-            margin-top: 10px; border-radius: 2px; z-index: 100;
+            margin-top: 15px; border-radius: 2px;
         }
         .btn-gold:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
 
+        /* Quiz */
         .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; width: 100%; max-width: 400px; }
-        .ans-btn { background: var(--glass); border: 1px solid rgba(212,175,55,0.2); color: var(--text); padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-family: 'Amiri', serif; font-size: 1.1rem; }
+        .ans-btn { background: var(--glass); border: 1px solid rgba(212,175,55,0.2); color: var(--text); padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-family: 'Amiri', serif; }
 
-        #game-box { width: 90%; max-width: 500px; height: 400px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px solid rgba(212,175,55,0.2); position: relative; overflow: hidden; margin: 20px 0; }
-        .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; font-size: 1.1rem; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        /* Game Box */
+        #game-box { width: 90%; max-width: 500px; height: 350px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px solid rgba(212,175,55,0.2); position: relative; overflow: hidden; margin: 20px 0; }
+        .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
-        .letter-scroll { background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; max-width: 600px; max-height: 60vh; overflow-y: auto; font-family: 'Amiri', serif; font-size: clamp(1.1rem, 4.5vw, 1.4rem); line-height: 2.4; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: justify; border-right: 6px solid var(--gold); -webkit-overflow-scrolling: touch; }
+        /* The Letter */
+        .letter-scroll { background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; max-width: 600px; max-height: 50vh; overflow-y: auto; font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 2.2; text-align: justify; border-right: 6px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
-        #music-ui { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.7); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--gold); z-index: 200; font-size: 0.7rem; color: var(--gold); cursor: pointer; visibility: hidden; }
-        .wave { width: 3px; height: 12px; background: var(--gold); animation: wave 1s infinite alternate; }
-        @keyframes wave { from { height: 4px; } to { height: 14px; } }
+        /* Open When Section */
+        .ow-container { width: 100%; max-width: 550px; display: flex; flex-direction: column; gap: 15px; margin-top: 10px; overflow-y: auto; max-height: 60vh; padding-right: 10px; }
+        .ow-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(248, 200, 220, 0.1); border-radius: 15px; overflow: hidden; cursor: pointer; transition: 0.4s ease; position: relative; }
+        .ow-card:hover { border-color: var(--pink); background: rgba(248, 200, 220, 0.05); transform: translateY(-2px); }
+        .ow-trigger { padding: 20px; display: flex; justify-content: space-between; align-items: center; color: var(--pink); font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .ow-content { max-height: 0; opacity: 0; padding: 0 25px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); font-family: 'Amiri', serif; font-size: 1.15rem; line-height: 1.8; color: #e0d5c1; text-align: center; font-style: italic; }
+        .ow-card.active { border-color: var(--pink); background: rgba(248, 200, 220, 0.08); }
+        .ow-card.active .ow-content { max-height: 500px; opacity: 1; padding-bottom: 30px; }
 
+        #music-ui { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.8); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--gold); z-index: 200; font-size: 0.6rem; color: var(--gold); cursor: pointer; visibility: hidden; }
         .nav-dots { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; }
         .dot { width: 6px; height: 6px; background: rgba(212,175,55,0.2); border-radius: 50%; }
         .dot.active { background: var(--gold); height: 20px; border-radius: 10px; }
@@ -72,58 +82,66 @@
         <section class="screen active" id="s1">
             <div class="date-badge">APRIL 8, 2026</div>
             <h1>Widad & Hashem</h1>
-            <p style="margin-bottom: 30px;">A beautiful year, a lifetime to go.</p>
-            <div class="volume-prompt">
+            <p>One year of us. Forever to go.</p>
+            <div class="volume-prompt" style="margin-top:30px;">
                 <span style="font-size: 1.5rem;">🔊</span>
-                <span>Ensure your sound is on</span>
+                <span>Volume up for Michael</span>
             </div>
-            <button class="btn-gold" onclick="startApp()">Enter Our World</button>
+            <button class="btn-gold" onclick="startApp()">Begin Our Story</button>
         </section>
 
         <section class="screen" id="s2">
-            <h2 style="font-family: 'Amiri', serif; font-size: 2.2rem;">منو أكثر واحد يحبج بهالدنيا؟</h2>
+            <h2 style="font-family: 'Amiri', serif; font-size: 2rem;">منو أكثر واحد يحبج بهالدنيا؟</h2>
             <div class="quiz-grid">
                 <button class="ans-btn" onclick="checkQuiz(this)">Hashem</button>
                 <button class="ans-btn" onclick="checkQuiz(this)">انتي</button>
                 <button class="ans-btn" onclick="checkQuiz(this)">رفيجاتج</button>
                 <button class="ans-btn" onclick="checkQuiz(this)">الكل</button>
             </div>
-            <button id="quiz-next" class="btn-gold" style="display:none;" onclick="go(3)">See The Proof</button>
+            <button id="quiz-next" class="btn-gold" style="display:none; margin-top:30px;" onclick="go(3)">See My Heart</button>
         </section>
 
         <section class="screen" id="s3">
-            <div class="date-badge">COLLECTING MEMORIES</div>
             <div id="game-box"></div>
-            <p style="font-size: 0.7rem; color: var(--gold);">Catch the words to unlock my heart...</p>
+            <p style="font-size: 0.7rem; color: var(--gold);">Catch all the words to unlock the letter...</p>
             <button id="game-btn" class="btn-gold" style="display:none;" onclick="go(4)">Open The Letter</button>
         </section>
 
         <section class="screen" id="s4">
             <div class="letter-scroll">
-                يا بعد عمري وكل طوايف هلي ودنيتي كلها يا وداد اليوم كملنا سنة مع بعض واليوم عيدنا صار عيدين بوجودج يا اغلى واجمل نعمة ربي جاد علي فيها والله يا روحي اني ميت فيج واعشق كل تفصيل فيج يمكن حتى انتي ما تلاحظينه بنفسج احب ضحكتج اللي ترد الروح لقلبي واحب عيونج اللي اشوف فيها مستقبلي كله وكل يوم يمر وانتي معاي احس اني ملكت الدنيا وما فيها والله يا قلبي ماكو شي بهالدنيا يونسني كثر ما حنا مع بعض بكل شي نسويه اعشق ابسط اللحظات اللي تجمعنا لما نلعب روبلوكس ونضحك ونتهاوش مثل اليهال ولما نلعب اي لعبة ثانية واحس اني ملكت الكون لما نكون مع بعض ولما ناكل مع بعض بنفس الوقت ونحس بلذة الاكل لاننا نتشاركه حتى وحنا بعيد ولما تطلبين مني اكل نفس اللي تاكلينه عشان نحس اننا قاعدين على طاولة وحدة واعشق اللحظات اللي نفتح فيها الكاميرات ونسولف بالساعات واشوف ملامحج تضحك لي واتأمل وجهج اللي نور دنيتي كلها وانتي تسولفين وتضحكين معاي. 
-                <br><br>
-                صج احب لما اشوفج وانتي تسوين شغلج او تدرسين واكون انا السند اللي يشيل عنج كل هم وكل تعب مثل ما سويت لج الهومورك اليوم لاني ما ارضاها عليج ابد يالغالية.. والله يا روحي اني بأقرب وقت بكون عند باب بيتج واخطبج واخذج لعالمي الخاص عشان تكونين زوجتي وحلالي وام عيالي وبذمتي انا اللي اريح بالج كل ليلة واهتم فيج واحمي احلامج واخليج تحسين بدفا حضني وما تحتاجين احد غيري ابد. انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس وماراح ارتاح لين تكونين معاي بنفس البيت واهنيج واسعدج جدام الكل يا اغلى انسانة بحياتي.
-                <br><br>
-                اعشق تراب رجلج لانج انتي اللي غيرتي حياتي وخليتيني اعرف طعم السعادة صج وماراح اهد ايدج لو شنو يصير بهالدنيا لاني السند والظهر اللي دوم يوقف معج ويحميج من كل شر ومن كل ضيق. انتي مو بس حبيبتي، انتي اهلي وناسي ودنيتي اللي ما ابي غيرها. يارب يديم هالضحكة ولا يحرمني من وجودج بجانبي بكل خطوة اخطيها. وكل عام وانتي عيدي واجمل ايامي وكل عام واحنا مع بعض وبأيدين بعض لاخر يوم بعمري. احبج حيل يا روحي وقلبي وكل دنيتي وعقبال العمر كله وانتي بحضني وتحت جناحي يا ملكة قلبي وعيوني.
+                يا بعد عمري وكل طوايف هلي ودنيتي كلها يا وداد اليوم كملنا سنة مع بعض واليوم عيدنا صار عيدين بوجودج يا اغلى واجمل نعمة ربي جاد علي فيها والله يا روحي اني ميت فيج واعشق كل تفصيل فيج يمكن حتى انتي ما تلاحظينه بنفسج احب ضحكتج اللي ترد الروح لقلبي واحب عيونج اللي اشوف فيها مستقبلي كله وكل يوم يمر وانتي معاي احس اني ملكت الدنيا وما فيها والله يا قلبي ماكو شي بهالدنيا يونسني كثر ما حنا مع بعض بكل شي نسويه اعشق ابسط اللحظات اللي تجمعنا لما نلعب روبلوكس ونضحك ونتهاوش مثل اليهال ولما نلعب اي لعبة ثانية واحس اني ملكت الكون لما نكون مع بعض ولما ناكل مع بعض بنفس الوقت ونحس بلذة الاكل لاننا نتشاركه حتى وحنا بعيد ولما تطلبين مني اكل نفس اللي تاكلينه عشان نحس اننا قاعدين على طاولة وحدة واعشق اللحظات اللي نفتح فيها الكاميرات ونسولف بالساعات واشوف ملامحج تضحك لي واتأمل وجهج اللي نور دنيتي كلها وانتي تسولفين وتضحكين معاي واحب لما اشوفج وانتي تسوين شغلج او تدرسين واكون انا السند اللي يشيل عنج كل هم وكل تعب مثل ما سويت لج الهومورك اليوم لاني ما ارضاها عليج ابد يالغالية والله يا روحي اني بأقرب وقت بكون عند باب بيتج واخطبج واخذج لعالمي الخاص عشان تكونين زوجتي وحلالي وام عيالي وبذمتي انا اللي اريح بالج كل ليلة واهتم فيج واحمي احلامج واخليج تحسين بدفا حضني وما تحتاجين احد غيري ابد انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس وماراح ارتاح لين تكونين معاي بنفس البيت واهنيج واسعدج جدام الكل يا اغلى انسانة بحياتي اعشق تراب رجلج لانج انتي اللي غيرتي حياتي وخليتيني اعرف طعم السعادة صج وماراح اهد ايدج لو شنو يصير بهالدنيا لاني السند والظهر اللي دوم يوقف معج ويحميج من كل شر ومن كل ضيق وكل عام وانتي عيدي واجمل ايامي وكل عام واحنا مع بعض وبأيدين بعض لاخر يوم بعمري احبج حيل يا روحي وقلبي وكل دنيتي وعقبال العمر كله وانتي بحضني وتحت جناحي يا ملكة قلبي وعيوني.
             </div>
-            <button class="btn-gold" onclick="go(5)">Our Future</button>
+            <button class="btn-gold" style="margin-top:20px;" onclick="go(5)">Keep For Later</button>
         </section>
 
         <section class="screen" id="s5">
-            <h1>Hashem & Widad</h1>
-            <p>One year down, forever to go.</p>
-            <div style="margin-top: 40px; color: var(--gold);">
-                <p style="font-size: 0.7rem; letter-spacing: 5px;">TO INFINITY & BEYOND</p>
+            <div class="date-badge">FOR WHEN I'M NOT THERE</div>
+            <div class="ow-container">
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you're sad</span><span>♡</span></div>
+                    <div class="ow-content">
+                        My beautiful Widad, if you are reading this right now, I want you to take a deep, slow breath. I wish I could be there to pull you into my arms and hold you until all your worries fade away. Please remember that you are the most precious person in my world, and seeing you sad hurts me more than anything. You are incredibly strong, but you don't have to be strong alone. I am always by your side, even when we are miles apart. I believe in you, I cherish you, and I am so incredibly proud of the woman you are. Wipe those tears, my love—your smile is the only light I need.
+                    </div>
+                </div>
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you miss me</span><span>♡</span></div>
+                    <div class="ow-content">
+                        I miss you too, more than words could ever explain. Every second away from you feels like an eternity. But I want you to remember that distance is just a test to see how far love can travel, and our love has already proven it can cross any ocean. Close your eyes for a second and feel my heartbeat—it beats only for you. I am thinking of you right now, probably smiling at a memory of us playing Roblox or laughing on the phone. We will be together soon, and I will never let go of your hand again. You are my home.
+                    </div>
+                </div>
+                <div class="ow-card" onclick="toggleOW(this)">
+                    <div class="ow-trigger"><span>Open when you can't sleep</span><span>♡</span></div>
+                    <div class="ow-content">
+                        Lay your head back and relax your shoulders, my angel. The world is quiet now, and I want you to let your thoughts drift away. Imagine we are lying together, my arm around you, keeping you safe and warm. Listen to the rhythm of your breath and know that I am dreaming of you at this very moment. You are safe, you are loved, and you are mine. Let sleep take you into a world where we are already together. I’ll meet you in our dreams tonight. I love you, sleep peacefully.
+                    </div>
+                </div>
             </div>
-            <button class="btn-gold" onclick="go(1)">See It Again</button>
+            <button class="btn-gold" style="margin-top:20px;" onclick="go(1)">See It All Again</button>
         </section>
     </div>
 
     <div id="music-ui" onclick="toggleMusic()">
-        <div class="wave" style="animation-delay: 0s"></div>
-        <div class="wave" style="animation-delay: 0.2s"></div>
-        <div class="wave" style="animation-delay: 0.4s"></div>
-        <span id="music-text">PLAYING: THE LADY IN MY LIFE</span>
+        <div class="wave"></div><span id="music-text">PLAYING: THE LADY IN MY LIFE</span>
     </div>
 
     <div class="nav-dots">
@@ -141,14 +159,14 @@
                 height: '0', width: '0',
                 videoId: 'Z6DAt09V9u8', 
                 playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Z6DAt09V9u8', 'controls': 0 },
-                events: { 'onReady': () => console.log("Music Ready") }
+                events: { 'onReady': () => console.log("Michael is ready") }
             });
         }
 
         function startApp() {
             if (player && player.playVideo) {
                 player.playVideo();
-                player.setVolume(50);
+                player.setVolume(60);
             }
             document.getElementById('music-ui').style.visibility = "visible";
             go(2);
@@ -175,6 +193,12 @@
             document.getElementById('quiz-next').style.display = "block";
         }
 
+        function toggleOW(card) {
+            const wasActive = card.classList.contains('active');
+            document.querySelectorAll('.ow-card').forEach(c => c.classList.remove('active'));
+            if(!wasActive) card.classList.add('active');
+        }
+
         let bubbles = [];
         function initGame() {
             const box = document.getElementById('game-box');
@@ -187,8 +211,7 @@
                 const b = {
                     el: el, x: Math.random() * (box.clientWidth - 100),
                     y: Math.random() * (box.clientHeight - 50),
-                    // SLOWER VELOCITY (2 instead of 5)
-                    vx: (Math.random() - 0.5) * 2.5, vy: (Math.random() - 0.5) * 2.5,
+                    vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5,
                     w: el.offsetWidth, h: el.offsetHeight
                 };
                 el.onclick = () => { el.style.transform = "scale(0)"; b.vx = 0; b.vy = 0; count++; if(count === words.length) document.getElementById('game-btn').style.display = "block"; };
@@ -215,7 +238,7 @@
         function initStars() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             stars = [];
-            for(let i=0; i<120; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5});
+            for(let i=0; i<100; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5});
         }
         function drawStars() {
             ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "#d4af37";
@@ -223,17 +246,7 @@
             requestAnimationFrame(drawStars);
         }
         initStars(); drawStars();
-
-        window.addEventListener('mousedown', e => {
-            if(currentS !== 5) return;
-            const k = document.createElement('div');
-            k.style.position = "fixed"; k.style.fontSize = "2rem"; k.innerHTML = "❤️";
-            k.style.left = e.clientX + "px"; k.style.top = e.clientY + "px";
-            k.style.animation = "floatOut 2s forwards";
-            document.body.appendChild(k);
-            setTimeout(() => k.remove(), 2000);
-        });
+        window.onresize = initStars;
     </script>
-    <style>@keyframes floatOut { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(2) translateY(-100px); } }</style>
 </body>
 </html>

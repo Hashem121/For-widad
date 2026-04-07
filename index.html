@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Widad & Hashem: Forever</title>
+    <title>Widad & Hashem</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,700;1,900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,115 +11,73 @@
             --gold: #d4af37;
             --pink: #f8c8dc;
             --text: #e0d5c1;
-            --glass: rgba(255, 255, 255, 0.05);
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; overflow: hidden; height: 100vh; width: 100vw; }
 
         #canvas-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.6; pointer-events: none; }
-        .app-container { position: relative; z-index: 10; width: 100%; height: 100%; }
-
-        #player-container { position: absolute; top: -999px; visibility: hidden; }
-
+        
         .screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center;
-            padding: 20px; text-align: center;
-            opacity: 0; visibility: hidden; transform: scale(1.05);
+            display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; 
+            padding: 25px; text-align: center;
+            opacity: 0; visibility: hidden;
             transition: var(--transition);
+            z-index: 10;
         }
-        .screen.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .screen.active { opacity: 1; visibility: visible; }
 
-        /* Welcome screen specific centering */
-        #s1 { justify-content: center; }
-
-        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.5rem); color: var(--gold); margin-bottom: 10px; }
-        .date-badge { font-weight: 200; letter-spacing: 4px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid var(--gold); padding-bottom: 5px; font-size: 0.8rem; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 3.2rem); color: var(--gold); margin-bottom: 10px; }
+        .date-badge { font-weight: 200; letter-spacing: 4px; color: var(--gold); margin-bottom: 20px; border-bottom: 1px solid var(--gold); padding-bottom: 5px; font-size: 0.75rem; }
         
         .btn-gold {
             background: none; border: 1px solid var(--gold); color: var(--gold);
-            padding: 15px 40px; font-size: 0.8rem; letter-spacing: 2px;
+            padding: 14px 35px; font-size: 0.75rem; letter-spacing: 2px;
             text-transform: uppercase; cursor: pointer; transition: 0.3s;
-            margin-top: 20px; border-radius: 2px;
+            margin-top: 20px; border-radius: 2px; flex-shrink: 0;
         }
-        .btn-gold:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
+        .btn-gold:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
 
-        /* Game Box - MODIFIED: Centered vertically on Screen 2 */
-        #s2 { justify-content: center; } /* Vertically centers the game */
-        #game-box { width: 90%; max-width: 500px; height: 350px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px solid rgba(212,175,55,0.2); position: relative; overflow: hidden; margin: 20px 0; }
-        .word-bubble { position: absolute; padding: 10px 18px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; cursor: pointer; white-space: nowrap; }
+        /* GAME - VERTICALLY CENTERED */
+        #game-box { width: 100%; max-width: 450px; height: 320px; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid rgba(212,175,55,0.15); position: relative; overflow: hidden; margin: 10px 0; }
+        .word-bubble { position: absolute; padding: 10px 16px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; cursor: pointer; white-space: nowrap; font-size: 0.85rem; }
 
-        /* Scrollable Main Letter - MODIFIED: Restored Box Scroll Format */
-        #s3 { justify-content: center; } /* Centers the box vertically */
-        .letter-scroll { 
-            background: #fffdf9; color: #1a1a1a; padding: 40px 25px; border-radius: 4px; 
-            max-width: 600px; 
-            max-height: 55vh; /* Restore defined height for scrolling box */
-            overflow-y: auto; /* Re-enable internal scrolling */
-            font-family: 'Amiri', serif; font-size: 1.35rem; line-height: 2.3; 
+        /* LETTER BOX - RESTORED BOX SCROLL & CENTERED */
+        .letter-scroll-box { 
+            background: #fffdf9; color: #1a1a1a; padding: 30px 20px; border-radius: 4px; 
+            max-width: 550px; width: 100%;
+            max-height: 50vh; 
+            overflow-y: auto; 
+            font-family: 'Amiri', serif; font-size: 1.2rem; line-height: 2.1; 
             text-align: justify; border-right: 6px solid var(--gold); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
 
-        .click-hint { font-size: 1.1rem; color: var(--pink); margin-bottom: 15px; letter-spacing: 4px; font-weight: 600; text-transform: uppercase; }
-
-        /* KEEPING PERSONAL ARCHIVE (S4) EXACTLY THE SAME */
+        /* PERSONAL ARCHIVE - 2 COLUMNS HELD EXACTLY */
         .ow-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-            max-width: 800px;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding: 10px;
-            margin-bottom: 20px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+            width: 100%; max-width: 800px; max-height: 60vh;
+            overflow-y: auto; padding: 5px;
         }
-
         .ow-card { 
-            background: rgba(255, 255, 255, 0.03); 
-            border: 1px solid rgba(248, 200, 220, 0.1); 
-            border-radius: 15px; 
-            overflow: hidden; 
-            cursor: pointer; 
-            transition: 0.4s;
-            display: flex;
-            flex-direction: column;
-            height: fit-content;
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(248, 200, 220, 0.12); 
+            border-radius: 10px; cursor: pointer; transition: 0.3s;
+            display: flex; flex-direction: column; height: fit-content;
         }
+        .ow-trigger { padding: 15px 10px; display: flex; justify-content: space-between; align-items: center; color: var(--pink); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+        .ow-content { display: none; padding: 0 12px 18px 12px; font-family: 'Amiri', serif; font-size: 1.1rem; line-height: 1.8; color: #e0d5c1; text-align: right; }
+        .ow-card.active { grid-column: span 2; border-color: var(--pink); background: rgba(248, 200, 220, 0.08); }
+        .ow-card.active .ow-content { display: block; }
 
-        .ow-trigger { 
-            padding: 22px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            color: var(--pink); 
-            font-size: 0.85rem; 
-            letter-spacing: 1px; 
-            text-transform: uppercase; 
-            font-weight: 600;
-        }
-        
-        .ow-content { 
-            max-height: 0; opacity: 0; padding: 0 25px; transition: all 0.6s ease; 
-            font-family: 'Amiri', serif; font-size: 1.25rem; line-height: 2; 
-            color: #e0d5c1; text-align: right; 
-            overflow-y: auto;
-        }
+        /* FINAL PAGE - CENTERED WITH SUNFLOWERS */
+        .flower-bed { font-size: 2.2rem; margin-bottom: 10px; }
+        .heart-vow { font-size: 3.5rem; color: var(--gold); margin-bottom: 15px; animation: heartbeat 1.5s infinite; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-        .ow-card.active { border-color: var(--pink); background: rgba(248, 200, 220, 0.1); }
-        .ow-card.active .ow-content { max-height: 300px; opacity: 1; padding-bottom: 30px; margin-top: 5px; }
-
-        /* Final Page Decor - MODIFIED: Centered vertically */
-        #s5 { justify-content: center; } /* Vertically centers the final vow */
-        .flower-bed { font-size: 2.5rem; margin: 15px 0; display: flex; gap: 15px; justify-content: center; }
-        .heart-vow { font-size: 3.5rem; color: var(--gold); margin: 10px 0; animation: heartbeat 1.5s infinite; }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-
-        #music-ui { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.8); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--gold); z-index: 200; font-size: 0.6rem; color: var(--gold); cursor: pointer; visibility: hidden; }
-        .wave { width: 3px; height: 12px; background: var(--gold); animation: wave 1s infinite alternate; }
+        #music-ui { position: fixed; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.85); padding: 8px 15px; border-radius: 30px; border: 1px solid var(--gold); z-index: 200; font-size: 0.55rem; color: var(--gold); cursor: pointer; }
     </style>
 </head>
 <body>
@@ -137,102 +95,78 @@
 
         <section class="screen" id="s2">
             <div id="game-box"></div>
-            <p style="font-size: 0.7rem; color: var(--gold); letter-spacing: 1px;">Catch the floating words...</p>
+            <p style="font-size: 0.75rem; color: var(--gold); opacity: 0.8;">Catch the floating words...</p>
             <button id="game-btn" class="btn-gold" style="display:none;" onclick="go(3)">Open The Letter</button>
         </section>
 
         <section class="screen" id="s3">
-            <div class="letter-scroll">
+            <div class="letter-scroll-box">
                 يا بعد عمري وكل طوايف هلي ودنيتي كلها يا وداد اليوم كملنا سنة مع بعض واليوم عيدنا صار عيدين بوجودج يا اغلى واجمل نعمة ربي جاد علي فيها والله يا روحي اني ميت فيج واعشق كل تفصيل فيج يمكن حتى انتي ما تلاحظينه بنفسج احب ضحكتج اللي ترد الروح لقلبي واحب عيونج اللي اشوف فيها مستقبلي كله وكل يوم يمر وانتي معاي احس اني ملكت الدنيا وما فيها والله يا قلبي ماكو شي بهالدنيا يونسني كثر ما حنا مع بعض بكل شي نسويه اعشق ابسط اللحظات اللي تجمعنا لما نلعب روبلوكس ونضحك ونتهاوش مثل اليهال ولما نلعب اي لعبة ثانية واحس اني ملكت الكون لما نكون مع بعض ولما ناكل مع بعض بنفس الوقت ونحس بلذة الاكل لاننا نتشاركه حتى وحنا بعيد ولما تطلبين مني اكل نفس اللي تاكلينه عشان نحس اننا قاعدين على طاولة وحدة واعشق اللحظات اللي نفتح فيها الكاميرات ونسولف بالساعات واشوف ملامحج تضحك لي واتأمل وجهج اللي نور دنيتي كلها وانتي تسولفين وتضحكين معاي واحب لما اشوفج وانتي تسوين شغلج او تدرسين واكون انا السند اللي يشيل عنج كل هم وكل تعب مثل ما سويت لج الهومورك اليوم لاني ما ارضاها عليج ابد يالغالية والله يا روحي اني بأقرب وقت بكون عند باب بيتج واخطبج واخذج لعالمي الخاص عشان تكونين زوجتي وحلالي وام عيالي وبذمتي انا اللي اريح بالج كل ليلة واهتم فيج واحمي احلامج واخليج تحسين بدفا حضني وما تحتاجين احد غيري ابد انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس وماراح ارتاح لين تكونين معاي بنفس البيت واهنيج واسعدج جدام الكل يا اغلى انسانة بحياتي اعشق تراب رجلج لانج انتي اللي غيرتي حياتي وخليتيني اعرف طعم السعادة صج وماراح اهد ايدج لو شنو يصير بهالدنيا لاني السند والظهر اللي دوم يوقف معج ويحميج من كل شر ومن كل ضيق وكل عام وانتي عيدي واجمل ايامي وكل عام واحنا مع بعض وبأيدين بعض لاخر يوم بعمري احبج حيل يا روحي وقلبي وكل دنيتي وعقبال العمر كله وانتي بحضني وتحت جناحي يا ملكة قلبي وعيوني.
             </div>
-            <button class="btn-gold" onclick="go(4)">Open Personal Archive</button>
+            <button class="btn-gold" onclick="go(4)">Personal Archive</button>
         </section>
 
         <section class="screen" id="s4">
-            <div class="click-hint">Click when you need me</div>
+            <div style="color:var(--pink); font-size:0.9rem; letter-spacing:3px; margin-bottom:15px; font-weight:600;">CLICK WHEN YOU NEED ME</div>
             <div class="ow-grid">
-                
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you're sad</span><span>♡</span></div>
-                    <div class="ow-content">يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد. اخذي نفس عميق وغمضي عيونج، وتخيلي اني ماسك ايدج حيل وقاعد اقولج ان كل شي بيمر وبنضحك عليه مع بعض. ضحكتج هي اللي تنور دنيتي، فلا تحرميني منها يا غلاتي.. انتي مو بس حبيبتي، انتي اهلي وكل دنيتي، والحزن ما يليق لعيونج هذي اللي اشوف فيها كل مستقبلي. هاشم معاج وبالقرب منج دايم، ولو احتجتي ابكي، ابكي بصدري انا، لاني انا اللي يحميج من الدنيا كلها.</div>
+                    <div class="ow-trigger"><span>Sad</span><span>♡</span></div>
+                    <div class="ow-content">يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد.</div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you miss me</span><span>♡</span></div>
-                    <div class="ow-content">والله يا وداد اني اشتاق لج اكثر مما تتصورين، بكل ثانية وبكل لحظة. المسافة مجرد ارقام، بس قلبي دايم عندج. لما تحسين بالوحدة، تذكري ان في واحد بالكويت ميت فيج وقاعد يفكر فيج الحين. تذكري سوالفنا، لعبنا، وضحكنا اللي ما يخلص. انا لج وببقى لج، وقريب بنكون مع بعض وما راح اخليج تشتاقين لي ابد لاني بكون قدام عيونج طول العمر. انتي النفس اللي اتنفسه، والوقت بدونج ماله طعم، بس صبري يا روحي الوعد قريب وبنعوض كل لحظة شوق بلمة ايدين ما تفترق ابد. انتي النور اللي ينور طريجي، واشتياقي لج هو اللي يخليني اشتغل واتعب عشان اليوم اللي تكونين فيه زوجتي وحلالي.</div>
+                    <div class="ow-trigger"><span>Miss Me</span><span>♡</span></div>
+                    <div class="ow-content">والله يا وداد اني اشتاق لج اكثر مما تتصورين، بكل ثانية وبكل لحظة. المسافة مجرد ارقام، بس قلبي دايم عندج. قريب بنكون مع بعض وما راح اخليج تشتاقين لي ابد لاني بكون قدام عيونج طول العمر.</div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you're overthinking</span><span>♡</span></div>
-                    <div class="ow-content">يا عمري هدي بالج ولا تخلين الافكار تلعب بقلبج. كل اللي ابيج تعرفينه ان حبي لج صادق وثابت مثل الجبل. لا تفكرين ب باجر ولا تحاتين شي، لاني انا معاج وما راح اهدج لو شنو يصير. انتي ملكتي ودنيتي كلها، وكل شي قاعد اسويه هو عشانج وعشان مستقبلنا مع بعض. ريحي بالج يا بعد هلي، هاشم يحبج اكثر من روحه وما يرضى ان هالافكار تتعبج. انتي اختيار قلبي الاول والاخير، ومكانج بقلبي محفور لآخر يوم بعمري. لا تسمعين لوسواس عقلج، اسمعي دقات قلبي اللي تقول اسمج "وداد" مع كل نبضة.</div>
+                    <div class="ow-trigger"><span>Sleepy</span><span>♡</span></div>
+                    <div class="ow-content">تخيلي إني قاعد أمسح على راسج وأقرأ لج أذكار وأسمي عليج لين تغفين بحضني. ريحي بالج، هاشم يحرس أحلامج، وحبي لج هو الدفا اللي يخليج تنامين وانتي مرتاحة.</div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you had a bad day</span><span>♡</span></div>
-                    <div class="ow-content">قطي كل تعب اليوم ورا ظهرج وتعالي بحضني. ادري ساعات الاشياء ما تمشي مثل ما نبي، بس هذا كله ما يهم دامنا مع بعض. انتي سويتي اللي عليج وزيادة، والحين وقت انج ترتاحين وتعرفين ان في قلب يحبج وينطرج ويدعي لج بكل صلاة. باجر يوم جديد واحلى، لاني بكون فيه معاج يا اغلى ناسي. لا تخلين موقف او كلمة تضيق خلقج، انتي اكبر من كل شي، وانتي الغالية اللي ما تهون علي ابد. نامي وريحي بالج، وخلي عنج كل اللي كدرج، لاني انا اللي بصالحج وبضحكج لين تنسين شصار اليوم كله.</div>
+                    <div class="ow-trigger"><span>Overthinking</span><span>♡</span></div>
+                    <div class="ow-content">هدي بالج ولا تخلين الافكار تلعب بقلبج. حبي لج ثابت مثل الجبل. لا تفكرين ب باجر ولا تحاتين شي، لاني انا معاج وما راح اهدج لو شنو يصير.</div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Thinking about our future</span><span>♡</span></div>
-                    <div class="ow-content">تذكري ليش بدينا، وتذكري شكثر تعبنا عشان نوصل هني. انتي مو بس حبيبتي، انتي طموحي وحلمي. لا تخلين اي عائق يوقف بطريقج، وان تعبتي، انا ظهرج وسندج اللي يشيلج. لا تستسلمين ابد لاني اشوف فيج القوة اللي ما شفتها بغيرج. كملي يا روحي وانا معاج خطوة ب خطوة، ايد ب ايد، لين نوصل للي نبيه. تذكري اني افتخر فيج وبكل شي تسوينه، وان تعثرتي انا اللي بمسك ايدج واقومج من جديد. انتي وداد الروح، والروح ما تنهزم ابد وانتي عندج هاشم اللي يحميج ويشجعج لاخر لحظة.</div>
+                    <div class="ow-trigger"><span>Bad Day</span><span>♡</span></div>
+                    <div class="ow-content">قطي كل تعب اليوم ورا ظهرج. مابي هالكدر يمر بقلبج الطيب. تذكري إن اليوم خلص، وبكرة بيكون أحسن بوجودنا مع بعض. تعالي بحضني وخليني أنسيج كل ضيق.</div>
                 </div>
-
                 <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>A reminder of my love</span><span>♡</span></div>
-                    <div class="ow-content">لو بكتب من اليوم لسنين قدام ما راح اخلص وصف حبي لج. احبج حب ما ينتهي، احبج بكل حالاتج، وانتي تضحكين، وانتي معصبة، وانتي تدرسين، وانتي نايمة. انتي صرتي جزء من دمي، وما اتخيل حياتي بدونج ثانية وحدة. الله لا يحرمني من وجودج يا اجمل نعمة جاد ربي علي فيها. انتي الوداد، وانتي الروح، وانتي كل دنيتي. حبج هو اللي خلاني اعرف معنى السعادة الحقيقية، واعدج اني بكون لج الزوج والاب والاخ والصديق طول العمر. انتي اغلى شي املكه، ومستعد اخسر العالم كله بس عشان كسبج وضحكتج هذي.</div>
+                    <div class="ow-trigger"><span>Future</span><span>♡</span></div>
+                    <div class="ow-content">اشوف بيتنا، واشوف ضحكتنا، واشوفج وانتي زوجتي وحلالي وام عيالي. كل تعب الحين هو عشان ذيج اللحظة اللي نكون فيها تحت سقف واحد.</div>
                 </div>
-
             </div>
             <button class="btn-gold" onclick="go(5)">The Final Vow</button>
         </section>
 
         <section class="screen" id="s5">
-            <div class="flower-bed">🌻 🌹 🌻</div>
+            <div class="flower-bed">🌻 🌻 🌻</div>
             <div class="heart-vow">❤️</div>
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">Today, Tomorrow, Forever.</h2>
-            <p style="margin-top: 15px; font-style: italic; opacity: 0.8;">"You are the poem I never knew how to write."</p>
-            <p style="margin-top: 20px; font-family: 'Amiri', serif; font-size: 1.4rem;">وعد عليّ يا وداد، إني أصونج وأحبج لآخر يوم بعمري.</p>
-            <div style="margin-top: 30px; font-size: 0.8rem; letter-spacing: 3px; color: var(--gold);">HASHEM ❤️ WIDAD</div>
-            <button class="btn-gold" onclick="go(1)">Restart Our Journey</button>
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); font-size: 2.2rem;">The Vow</h2>
+            <p style="margin-top: 15px; font-family: 'Amiri', serif; font-size: 1.4rem; line-height: 1.8;">
+                وعد عليّ يا وداد، إني أصونج وأظل أحبج وأدللج لآخر نفس بصدري. <br>
+                أحبج فوق ما يتخيله قلبج، يا ملكة حياتي.
+            </p>
+            <div style="margin-top: 25px; font-size: 0.7rem; letter-spacing: 4px; color: var(--gold);">HASHEM ❤️ WIDAD</div>
+            <button class="btn-gold" onclick="go(1)">Restart</button>
         </section>
     </div>
 
-    <div id="music-ui" onclick="toggleMusic()">
-        <div class="wave"></div><span id="music-text">PLAYING: THE LADY IN MY LIFE</span>
-    </div>
+    <div id="music-ui" onclick="toggleMusic()"><span>PLAYING: THE LADY IN MY LIFE</span></div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        let currentS = 1;
-        let player;
+        let currentS = 1; let player;
         const words = ["حبيبتي", "وداد", "قلبي", "هاشم", "سنة", "روبلوكس", "عشق", "سند", "زوجتي", "حياتي"];
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0', width: '0',
-                videoId: 'Z6DAt09V9u8', 
-                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Z6DAt09V9u8', 'controls': 0 },
-                events: { 'onReady': () => console.log("Audio Ready") }
-            });
+            player = new YT.Player('player', { height: '0', width: '0', videoId: 'Z6DAt09V9u8', playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Z6DAt09V9u8' } });
         }
-
-        function startApp() {
-            if (player && player.playVideo) { player.playVideo(); player.setVolume(70); }
-            document.getElementById('music-ui').style.visibility = "visible";
-            go(2);
-        }
-
-        function toggleMusic() {
-            const state = player.getPlayerState();
-            if (state === 1) { player.pauseVideo(); document.getElementById('music-text').innerText = "PAUSED"; }
-            else { player.playVideo(); document.getElementById('music-text').innerText = "PLAYING..."; }
-        }
-
-        function go(n) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('s'+n).classList.add('active');
-            currentS = n;
-            if(n === 2) initGame();
+        function startApp() { if(player) player.playVideo(); go(2); }
+        function toggleMusic() { if(player.getPlayerState() === 1) player.pauseVideo(); else player.playVideo(); }
+        
+        function go(n) { 
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
+            document.getElementById('s'+n).classList.add('active'); 
+            currentS = n; if(n === 2) initGame(); 
         }
 
         function toggleOW(card) {
@@ -243,32 +177,22 @@
 
         let bubbles = [];
         function initGame() {
-            const box = document.getElementById('game-box');
-            box.innerHTML = ""; bubbles = [];
-            let count = 0;
+            const box = document.getElementById('game-box'); box.innerHTML = ""; bubbles = []; let count = 0;
             words.forEach(w => {
-                const el = document.createElement('div');
-                el.className = 'word-bubble'; el.innerText = w;
-                box.appendChild(el);
-                const b = {
-                    el: el, x: Math.random() * (box.clientWidth - 100),
-                    y: Math.random() * (box.clientHeight - 50),
-                    vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5,
-                    w: el.offsetWidth, h: el.offsetHeight
-                };
-                el.onclick = () => { el.style.transform = "scale(0)"; b.vx = 0; b.vy = 0; count++; if(count === words.length) document.getElementById('game-btn').style.display = "block"; };
+                const el = document.createElement('div'); el.className = 'word-bubble'; el.innerText = w; box.appendChild(el);
+                const b = { el: el, x: Math.random()*200, y: Math.random()*150, vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2 };
+                el.onclick = () => { el.style.display = "none"; count++; if(count === words.length) document.getElementById('game-btn').style.display = "block"; };
                 bubbles.push(b);
             });
             updatePhysics();
         }
-
         function updatePhysics() {
             if(currentS !== 2) return;
             const box = document.getElementById('game-box');
             bubbles.forEach(b => {
                 b.x += b.vx; b.y += b.vy;
-                if(b.x <= 0 || b.x + b.w >= box.clientWidth) b.vx *= -1;
-                if(b.y <= 0 || b.y + b.h >= box.clientHeight) b.vy *= -1;
+                if(b.x <= 0 || b.x >= box.clientWidth - 80) b.vx *= -1;
+                if(b.y <= 0 || b.y >= box.clientHeight - 40) b.vy *= -1;
                 b.el.style.left = b.x + "px"; b.el.style.top = b.y + "px";
             });
             requestAnimationFrame(updatePhysics);
@@ -276,19 +200,13 @@
 
         const canvas = document.getElementById('canvas-stars');
         const ctx = canvas.getContext('2d');
-        let stars = [];
-        function initStars() {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            stars = [];
-            for(let i=0; i<80; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.2});
-        }
         function drawStars() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "#d4af37";
-            stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill(); });
-            requestAnimationFrame(drawStars);
+            for(let i=0; i<80; i++) { ctx.beginPath(); ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 1, 0, Math.PI*2); ctx.fill(); }
         }
-        initStars(); drawStars();
-        window.onresize = initStars;
+        drawStars();
+        window.onresize = drawStars;
     </script>
 </body>
 </html>

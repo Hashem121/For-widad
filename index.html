@@ -41,11 +41,25 @@
         }
         .btn-gold:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
 
-        /* GAME CENTERED */
         #game-box { width: 100%; max-width: 450px; height: 320px; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid rgba(212,175,55,0.15); position: relative; overflow: hidden; margin: 10px 0; }
-        .word-bubble { position: absolute; padding: 10px 16px; background: var(--gold); color: #000; border-radius: 50px; font-family: 'Amiri', serif; font-weight: bold; cursor: pointer; white-space: nowrap; font-size: 0.85rem; }
+        
+        /* ADJUSTED SIZE for longer phrases */
+        .word-bubble { 
+            position: absolute; 
+            padding: 12px 20px; 
+            background: var(--gold); 
+            color: #000; 
+            border-radius: 50px; 
+            font-family: 'Amiri', serif; 
+            font-weight: bold; 
+            cursor: pointer; 
+            white-space: nowrap; 
+            font-size: 1rem; /* Slightly bigger font */
+            box-shadow: 0 5px 15px rgba(212,175,55,0.3);
+            transition: transform 0.1s ease;
+        }
+        .word-bubble:active { transform: scale(0.9); }
 
-        /* SCROLLABLE LETTER BOX */
         .letter-scroll-box { 
             background: #fffdf9; color: #1a1a1a; padding: 30px 20px; border-radius: 4px; 
             max-width: 550px; width: 100%;
@@ -56,7 +70,6 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
 
-        /* 2-COLUMN GRID FOR ARCHIVE */
         .ow-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
             width: 100%; max-width: 900px; max-height: 60vh;
@@ -94,13 +107,13 @@
 
         <section class="screen" id="s2">
             <div id="game-box"></div>
-            <p style="font-size: 0.75rem; color: var(--gold); opacity: 0.8;">Catch the floating words...</p>
+            <p style="font-size: 0.75rem; color: var(--gold); opacity: 0.8; margin-top:10px;">Catch the floating words...</p>
             <button id="game-btn" class="btn-gold" style="display:none;" onclick="go(3)">Open The Letter</button>
         </section>
 
         <section class="screen" id="s3">
             <div class="letter-scroll-box">
-                يا بعد عمري وكل طوايف هلي ودنيتي كلها يا وداد اليوم كملنا سنة مع بعض واليوم عيدنا صار عيدين بوجودج يا اغلى واجمل نعمة ربي جاد علي فيها والله يا روحي اني ميت فيج واعشق كل تفصيل فيج يمكن حتى انتي ما تلاحظينه بنفسج احب ضحكتج اللي ترد الروح لقلبي واحب عيونج اللي اشوف فيها مستقبلي كله وكل يوم يمر وانتي معاي احس اني ملكت الدنيا وما فيها والله يا قلبي ماكو شي بهالدنيا يونسني كثر ما حنا مع بعض بكل شي نسويه اعشق ابسط اللحظات اللي تجمعنا لما نلعب روبلوكس ونضحك ونتهاوش مثل اليهال ولما نلعب اي لعبة ثانية واحس اني ملكت الكون لما نكون مع بعض ولما ناكل مع بعض بنفس الوقت ونحس بلذة الاكل لاننا نتشاركه حتى وحنا بعيد ولما تطلبين مني اكل نفس اللي تاكلينه عشان نحس اننا قاعدين على طاولة وحدة واعشق اللحظات اللي نفتح فيها الكاميرات ونسولف بالساعات واشوف ملامحج تضحك لي واتأمل وجهج اللي نور دنيتي كلها وانتي تسولفين وتضحكين معاي واحب لما اشوفج وانتي تسوين شغلج او تدرسين واكون انا السند اللي يشيل عنج كل هم وكل تعب مثل ما سويت لج الهومورك اليوم لاني ما ارضاها عليج ابد يالغالية والله يا روحي اني بأقرب وقت بكون عند باب بيتج واخطبج واخذج لعالمي الخاص عشان تكونين زوجتي وحلالي وام عيالي وبذمتي انا اللي اريح بالج كل ليلة واهتم فيج واحمي احلامج واخليج تحسين بدفا حضني وما تحتاجين احد غيري ابد انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس وماراح ارتاح لين تكونين معاي بنفس البيت واهنيج واسعدج جدام الكل يا اغلى انسانة بحياتي اعشق تراب رجلج لانج انتي اللي غيرتي حياتي وخليتيني اعرف طعم السعادة صج وماراح اهد ايدج لو شنو يصير بهالدنيا لاني السند والظهر اللي دوم يوقف معج ويحميج من كل شر ومن كل ضيق وكل عام وانتي عيدي واجمل ايامي وكل عام واحنا مع بعض وبأيدين بعض لاخر يوم بعمري احبج حيل يا روحي وقلبي وكل دنيتي وعقبال العمر كله وانتي بحضني وتحت جناحي يا ملكة قلبي وعيوني.
+                يا بعد عمري وكل طوايف هلي ودنيتي كلها يا وداد اليوم كملنا سنة مع بعض واليوم عيدنا صار عيدين بوجودج يا اغلى واجمل نعمة ربي جاد علي فيها والله يا روحي اني ميت فيج واعشق كل تفصيل فيج يمكن حتى انتي ما تلاحظينه بنفسج احب ضحكتج اللي ترد الروح لقلبي واحب عيونج اللي اشوف فيها مستقبلي كله وكل يوم يمر وانتي معاي احس اني ملكت الدنيا وما فيها والله يا قلبي ماكو شي بهالدنيا يونسني كثر ما حنا مع بعض بكل شي نسويه اعشق ابسط اللحظات اللي تجمعنا لما نلعب روبلوكس ونضحك ونتهاوش مثل اليهال ولما نلعب اي لعبة ثانية واحس اني ملكت الكون لما نكون مع بعض ولما ناكل مع بعض بنفس الوقت ونحس بلذة الاكل لاننا نتشاركه حتى وحنا بعيد ولما تطلبين مني اكل نفس اللي تاكلينه عشان نحس اننا قاعدين على طاولة وحدة واعشق اللحظات اللي نفتح فيها الكاميرات ونسولف بالساعات واشوف ملامحج تضحك لي واتأمل وجهج اللي نور دنيتي كلها وانتي تسولفين وتضحكين معاي واحب لما اشوفج وانتي تسوي شغلج او تدرسين واكون انا السند اللي يشيل عنج كل هم وكل تعب مثل ما سويت لج الهومورك اليوم لاني ما ارضاها عليج ابد يالغالية والله يا روحي اني بأقرب وقت بكون عند باب بيتج واخطبج واخذج لعالمي الخاص عشان تكونين زوجتي وحلالي وام عيالي وبذمتي انا اللي اريح بالج كل ليلة واهتم فيج واحمي احلامج واخليج تحسين بدفا حضني وما تحتاجين احد غيري ابد انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس وماراح ارتاح لين تكونين معاي بنفس البيت واهنيج واسعدج جدام الكل يا اغلى انسانة بحياتي اعشق تراب رجلج لانج انتي اللي غيرتي حياتي وخليتيني اعرف طعم السعادة صج وماراح اهد ايدج لو شنو يصير بهالدنيا لاني السند والظهر اللي دوم يوقف معج ويحميج من كل شر ومن كل ضيق وكل عام وانتي عيدي واجمل ايامي وكل عام واحنا مع بعض وبأيدين بعض لاخر يوم بعمري احبج حيل يا روحي وقلبي وكل دنيتي وعقبال العمر كله وانتي بحضني وتحت جناحي يا ملكة قلبي وعيوني.
             </div>
             <button class="btn-gold" onclick="go(4)">Personal Archive</button>
         </section>
@@ -109,45 +122,14 @@
             <div style="color:var(--pink); font-size:0.9rem; letter-spacing:3px; margin-bottom:15px; font-weight:600;">CLICK WHEN YOU NEED ME</div>
             <div class="ow-grid">
                 
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you're sad</span><span>♡</span></div>
-                    <div class="ow-content">يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد.</div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you miss me</span><span>♡</span></div>
-                    <div class="ow-content">والله يا وداد اني اشتاق لج اكثر مما تتصورين، بكل ثانية وبكل لحظة. المسافة مجرد ارقام، بس قلبي دايم عندج. قريب بنكون مع بعض وما راح اخليج تشتاقين لي ابد لاني بكون قدام عيونج طول العمر.</div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you can't sleep</span><span>♡</span></div>
-                    <div class="ow-content">تخيلي إني قاعد أمسح على راسج وأقرأ لج أذكار وأسمي عليج لين تغفين بحضني. ريحي بالج، هاشم يحرس أحلامج، وحبي لج هو الدفا اللي يخليج تنامين وانتي مرتاحة.</div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you're overthinking</span><span>♡</span></div>
-                    <div class="ow-content">هدي بالج ولا تخلين الافكار تلعب بقلبج. حبي لج ثابت مثل الجبل. لا تفكرين ب باجر ولا تحاتين شي، لاني انا معاج وما راح اهدج لو شنو يصير.</div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Open when you had a bad day</span><span>♡</span></div>
-                    <div class="ow-content">قطي كل تعب اليوم ورا ظهرج. مابي هالكدر يمر بقلبج الطيب. تذكري إن اليوم خلص، وبكرة بيكون أحسن بوجودنا مع بعض. تعالي بحضني وخليني أنسيج كل ضيق.</div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>Thinking about our future</span><span>♡</span></div>
-                    <div class="ow-content">اشوف بيتنا، واشوف ضحكتنا، واشوفج وانتي زوجتي وحلالي وام عيالي. كل تعب الحين هو عشان ذيج اللحظة اللي نكون فيها تحت سقف واحد. مستقبلي ماله طعم بدونج.</div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>A reminder of my love</span><span>♡</span></div>
-                    <div class="ow-content">انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس. حبج هو اللي خلاني اعرف معنى السعادة الحقيقية، واعدج اني بكون لج الزوج والاب والاخ والصديق طول العمر.</div>
-                </div>
-
-                <div class="ow-card" onclick="toggleOW(this)">
-                    <div class="ow-trigger"><span>When you need reassurance</span><span>♡</span></div>
-                    <div class="ow-content">لا تشكين لحظة بمكامج بقلبي. انتي الوداد، وانتي الروح، وانتي كل دنيتي. هاشم لج وببقى لج للأبد، ومستعد أخسر العالم كله بس عشان أشوف ضحكتج.</div>
-                </div>
+                <div class="ow-card" onclick="toggleOW(this)"><div class="ow-trigger"><span>Open when you're sad</span><span>♡</span></div><div class="ow-content">يا بعد قلبي وروحي، لا تخلين هالضيق يلمس قلبج وانتي عندج هاشم. ادري الدنيا ساعات تصير ثقيلة، بس تذكري انج اقوى انسانة عرفتها ب حياتي. انا هني عشان اشيل عنج كل هم، وعشان اكون لج السند اللي ما يميل ابد.</div></div>
+                <div class="ow-card" onclick="toggleOW(this)"><div class="ow-trigger"><span>Open when you miss me</span><span>♡</span></div><div class="ow-content">والله يا وداد اني اشتاق لج اكثر مما تتصورين، بكل ثانية وبكل لحظة. المسافة مجرد ارقام، بس قلبي دايم عندج. قريب بنكون مع بعض وما راح اخليج تشتاقين لي ابد لاني بكون قدام عيونج طول العمر.</div></div>
+                <div class="ow-card" onclick="toggleOW(this)"><div class="ow-trigger"><span>Open when you can't sleep</span><span>♡</span></div><div class="ow-content">تخيلي إني قاعد أمسح على راسج وأقرأ لج أذكار وأسمي عليج لين تغفين بحضني. ريحي بالج، هاشم يحرس أحلامج، وحبي لج هو الدفا اللي يخليج تنامين وانتي مرتاحة.</div></div>
+                <div class="ow-card" onclick="toggleOW(this)"><div class="ow-trigger"><span>Open when you're overthinking</span><span>♡</span></div><div class="ow-content">هدي بالج ولا تخلين الافكار تلعب بقلبج. حبي لج ثابت مثل الجبل. لا تفكرين ب باجر ولا تحاتين شي، لاني انا معاج وما راح اهدج لو شنو يصير.</div></div>
+                <div class="ow-card" onclick="toggleOW(this)"><div class="ow-trigger"><span>Open when you had a bad day</span><span>♡</span></div><div class="ow-content">قطي كل تعب اليوم ورا ظهرج. مابي هالكدر يمر بقلبج الطيب. تذكري إن اليوم خلص، وبكرة بيكون أحسن بوجودنا مع بعض. تعالي بحضني وخليني أنسيج كل ضيق.</div></div>
+                <div class="ow-card" onclick="toggleOW(this)"><div class="ow-trigger"><span>Thinking about our future</span><span>♡</span></div><div class="ow-content">اشوف بيتنا، واشوف ضحكتنا، واشوفج وانتي زوجتي وحلالي وام عيالي. كل تعب الحين هو عشان ذيج اللحظة اللي نكون فيها تحت سقف واحد. مستقبلي ماله طعم بدونج.</div></div>
+                <div class="ow-card" onclick="toggleOW(this)"><div class="ow-trigger"><span>A reminder of my love</span><span>♡</span></div><div class="ow-content">انتي ملكتي ودلوعتي اللي اخترتها من بين كل الناس. حبج هو اللي خلاني اعرف معنى السعادة الحقيقية، واعدج اني بكون لج الزوج والاب والاخ والصديق طول العمر.</div></div>
+                <div class="ow-card" onclick="toggleOW(this)"><div class="ow-trigger"><span>When you need reassurance</span><span>♡</span></div><div class="ow-content">لا تشكين لحظة بمكامج بقلبي. انتي الوداد، وانتي الروح، وانتي كل دنيتي. هاشم لج وببقى لج للأبد، ومستعد أخسر العالم كله بس عشان أشوف ضحكتج.</div></div>
 
             </div>
             <button class="btn-gold" onclick="go(5)">Our Eternal Promise</button>
@@ -171,7 +153,12 @@
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         let currentS = 1; let player;
-        const words = ["حبيبتي", "وداد", "قلبي", "هاشم", "سنة", "روبلوكس", "عشق", "سند", "زوجتي", "حياتي"];
+        
+        // --- MODIFIED GAME WORD LIST ---
+        // 1. Removed Arabic "أحبك"
+        // 2. Added Kuwaiti "أموووت فيج"
+        // 3. Added "زوجتي المستقبلية إن شاء الله"
+        const words = ["أموووت فيج", "وداد", "قلبي", "هاشم", "حياتي", "زوجتي المستقبلية إن شاء الله", "عشقي", "سندي", "دنيتي", "ملكتي"];
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', { height: '0', width: '0', videoId: 'Z6DAt09V9u8', playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Z6DAt09V9u8' } });
@@ -194,9 +181,28 @@
         let bubbles = [];
         function initGame() {
             const box = document.getElementById('game-box'); box.innerHTML = ""; bubbles = []; let count = 0;
+            
+            // Recalculate word dimensions after insertion to handle longer phrases
             words.forEach(w => {
-                const el = document.createElement('div'); el.className = 'word-bubble'; el.innerText = w; box.appendChild(el);
-                const b = { el: el, x: Math.random()*200, y: Math.random()*150, vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2 };
+                const el = document.createElement('div'); 
+                el.className = 'word-bubble'; 
+                el.innerText = w; 
+                box.appendChild(el);
+                
+                // Get dynamic width to prevent bubbles sticking past edges
+                const bubbleWidth = el.offsetWidth;
+                const bubbleHeight = el.offsetHeight;
+
+                const b = { 
+                    el: el, 
+                    x: Math.random() * (box.clientWidth - bubbleWidth), 
+                    y: Math.random() * (box.clientHeight - bubbleHeight), 
+                    vx: (Math.random() - 0.5) * 2.5, 
+                    vy: (Math.random() - 0.5) * 2.5,
+                    w: bubbleWidth,
+                    h: bubbleHeight
+                };
+                
                 el.onclick = () => { el.style.display = "none"; count++; if(count === words.length) document.getElementById('game-btn').style.display = "block"; };
                 bubbles.push(b);
             });
@@ -207,8 +213,11 @@
             const box = document.getElementById('game-box');
             bubbles.forEach(b => {
                 b.x += b.vx; b.y += b.vy;
-                if(b.x <= 0 || b.x >= box.clientWidth - 80) b.vx *= -1;
-                if(b.y <= 0 || b.y >= box.clientHeight - 40) b.vy *= -1;
+                
+                // Use dynamic dimensions for proper collision
+                if(b.x <= 0 || b.x >= box.clientWidth - b.w) b.vx *= -1;
+                if(b.y <= 0 || b.y >= box.clientHeight - b.h) b.vy *= -1;
+                
                 b.el.style.left = b.x + "px"; b.el.style.top = b.y + "px";
             });
             requestAnimationFrame(updatePhysics);
